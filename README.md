@@ -1,2 +1,2 @@
 # torch
-Simple TDD game
+Simple TDD game created using SFML libs
