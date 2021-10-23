@@ -1,5 +1,5 @@
 set(SOURCES
    ${SOURCES}
-   Game/Game.cpp
+   source/Game/Game.cpp
    PARENT_SCOPE
 )
