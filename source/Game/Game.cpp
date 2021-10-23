@@ -1,25 +1,33 @@
 #include <Game/Game.hpp>
 
-#include <SFML/Window.hpp>
-
 namespace game
 {
 
-int Game::start()
+Game::Game()
 {
-    sf::Window window(sf::VideoMode(800, 600), "Torch");
+    setupWindow();
+}
 
-    while (window.isOpen())
+int Game::loop()
+{
+    while (window_.isOpen())
     {
         sf::Event event;
-        while (window.pollEvent(event))
+        while (window_.pollEvent(event))
         {
             if (event.type == sf::Event::Closed)
-                window.close();
+                window_.close();
         }
     }
 
     return 0;
+}
+
+void Game::setupWindow()
+{
+    window_.create(sf::VideoMode(800, 600), "Torch");
+    window_.setVerticalSyncEnabled(true);
+    window_.setFramerateLimit(60);
 }
 
 }  // namespace game
