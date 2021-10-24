@@ -3,6 +3,9 @@
 *.out
 *.app
 
+# Project
+.vscode
+
 # Build files
 *.ninja*
 build

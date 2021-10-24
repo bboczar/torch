@@ -1,5 +1,6 @@
 #pragma once
 
+#include <memory>
 #include <stack>
 
 #include <SFML/Window.hpp>
@@ -18,7 +19,7 @@ public:
 
 private:
     sf::Window window_;
-    std::stack<GameState> gameStates_;
+    std::stack<std::unique_ptr<GameState>> gameStates_;
 };
 
 }  // namespace game
