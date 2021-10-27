@@ -1,6 +1,6 @@
 #pragma once
 
-#include <SFML/Window/Event.hpp>
+#include <SFML/Window.hpp>
 
 namespace game
 {
@@ -9,9 +9,10 @@ class GameState
 {
 
 public:
-    virtual void handleEvent(sf::Event) = 0;
+    virtual bool handleEvent(sf::Event) = 0;
     virtual void update() = 0;
-    virtual void draw() = 0;
+    // TODO: make it a DrawingObject
+    virtual void draw(sf::RenderWindow&) = 0;
 
 };
 

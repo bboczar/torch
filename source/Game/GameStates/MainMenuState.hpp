@@ -2,7 +2,10 @@
 
 #include <stack>
 
+#include <SFML/Graphics.hpp>
+
 #include <Game/GameState.hpp>
+#include <Game/GameStates/MainMenu/MainMenu.hpp>
 
 namespace game
 {
@@ -13,9 +16,11 @@ class MainMenuState : public GameState
 {
 public:
     MainMenuState();
-    void handleEvent(sf::Event) final;
+    bool handleEvent(sf::Event event) final;
     void update() final;
-    void draw() final;
+    void draw(sf::RenderWindow& window) final;
+private:
+    mainmenu::MainMenu menu_;
 };
 
 }  // namespace gamestates

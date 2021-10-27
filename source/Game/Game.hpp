@@ -4,6 +4,7 @@
 #include <stack>
 
 #include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 #include <Game/GameState.hpp>
 
@@ -15,10 +16,11 @@ class Game
 public:
     Game();
     int loop();
-    void setupWindow();
 
 private:
-    sf::Window window_;
+    void setupWindow();
+    void handleKeyPressed(const sf::Event keyPressedEvent);
+    sf::RenderWindow window_;
     std::stack<std::unique_ptr<GameState>> gameStates_;
 };
 

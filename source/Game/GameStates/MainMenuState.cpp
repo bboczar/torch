@@ -1,5 +1,7 @@
 #include <Game/GameStates/MainMenuState.hpp>
 
+#include "SFML/Graphics.hpp"
+
 namespace game
 {
 namespace gamestates
@@ -7,12 +9,12 @@ namespace gamestates
 
 MainMenuState::MainMenuState()
 {
-
 }
 
-void MainMenuState::handleEvent(sf::Event)
+bool MainMenuState::handleEvent(sf::Event)
 {
-    return;
+    bool stillAlive = true;
+    return stillAlive;
 }
 
 void MainMenuState::update()
@@ -20,9 +22,9 @@ void MainMenuState::update()
     return;
 }
 
-void MainMenuState::draw()
+void MainMenuState::draw(sf::RenderWindow& window)
 {
-    return;
+    menu_.draw(window);
 }
 
 

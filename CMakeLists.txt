@@ -18,4 +18,4 @@ add_subdirectory(source)
 find_package(SFML 2.5 COMPONENTS system window REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_link_libraries(${PROJECT_NAME} sfml-system sfml-window)
+target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)

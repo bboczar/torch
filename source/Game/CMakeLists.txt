@@ -1,5 +1,6 @@
 # Subdirs
 add_subdirectory(GameStates)
+add_subdirectory(Traits)
 
 # Sources
 set(SOURCES
