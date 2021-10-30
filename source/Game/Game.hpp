@@ -19,7 +19,6 @@ public:
 
 private:
     void setupWindow();
-    void handleKeyPressed(const sf::Event keyPressedEvent);
     sf::RenderWindow window_;
     std::stack<std::unique_ptr<GameState>> gameStates_;
 };
