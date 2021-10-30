@@ -7,13 +7,9 @@ namespace gamestates
 namespace mainmenu
 {
 
-MainMenu::MainMenu()
+MainMenu::MainMenu(sf::Font font)
+    : font_(font)
 {
-    if (!font_.loadFromFile("Anke.ttf"))
-    {
-        return;
-    }
-
     menuElements_[MenuElement_Start].setFont(font_);
     menuElements_[MenuElement_Start].setFillColor(sf::Color::Red);
     menuElements_[MenuElement_Start].setString("Play");

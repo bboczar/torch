@@ -7,8 +7,11 @@ namespace game
 namespace gamestates
 {
 
-MainMenuState::MainMenuState(sf::RenderWindow& window)
+MainMenuState::MainMenuState(
+    sf::RenderWindow& window,
+    sf::Font font)
     : window_(window)
+    , menu_(mainmenu::MainMenu(font))
 {
 }
 
@@ -17,20 +20,20 @@ void MainMenuState::handleEvents()
     sf::Event event;
     while (window_.pollEvent(event))
     {
-        //  TODO: refactor this into switcho-case
-        if (event.type == sf::Event::Closed)
+        switch (event.type)
         {
-            window_.close();
-        }
-
-        if (event.type == sf::Event::Resized)
-        {
-            // TODO: add resize support
-        }
-
-        if (event.type == sf::Event::KeyReleased)
-        {
-            handleKeyPressed(event);
+            case sf::Event::Closed:
+                window_.close();
+                break;
+            case sf::Event::Resized:
+                window_.setSize(sf::Vector2u(event.size.width, event.size.height));
+                break;
+            case sf::Event::KeyReleased:
+                handleKeyPressed(event);
+                break;
+            default:
+                // No need to handle other events
+                break;
         }
     }
 }

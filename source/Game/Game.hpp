@@ -19,7 +19,12 @@ public:
 
 private:
     void setupWindow();
+
     sf::RenderWindow window_;
+    sf::Font font_;
+    sf::Clock clock_;
+    sf::Text fpsText_;
+
     std::stack<std::unique_ptr<GameState>> gameStates_;
 };
 

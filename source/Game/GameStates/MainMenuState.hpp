@@ -15,7 +15,7 @@ namespace gamestates
 class MainMenuState : public GameState
 {
 public:
-    MainMenuState(sf::RenderWindow& window);
+    MainMenuState(sf::RenderWindow& window, sf::Font font);
     void handleEvents() final;
     void update() final;
     void draw() final;
@@ -23,6 +23,7 @@ private:
     void handleKeyPressed(const sf::Event event);
 
     sf::RenderWindow& window_;
+
     mainmenu::MainMenu menu_;
 };
 
