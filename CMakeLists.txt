@@ -15,7 +15,7 @@ set(CMAKE_BINARY_DIR "${PROJECT_SOURCE_DIR}/build")
 add_subdirectory(source)
 
 # Deps
-find_package(SFML 2.5 COMPONENTS system window REQUIRED)
+find_package(SFML 2.5 COMPONENTS system window graphics REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
