@@ -19,3 +19,14 @@ find_package(SFML 2.5 COMPONENTS system window REQUIRED)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
+
+#copy resources
+set(fonts Bebas-Regular.ttf)
+set(resources ${images} ${fonts} ${sounds})
+foreach(item IN LISTS resources)
+    add_custom_command(
+        TARGET Torch POST_BUILD
+        COMMAND ${CMAKE_COMMAND} -E copy "${CMAKE_CURRENT_SOURCE_DIR}/resources/${item}" "${CMAKE_CURRENT_BINARY_DIR}/resources/${item}"
+        DEPENDS "${CMAKE_CURRENT_SOURCE_DIR}/resources/${item}"
+    )
+endforeach()

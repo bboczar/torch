@@ -8,7 +8,7 @@ namespace game
 Game::Game()
 {
     setupWindow();
-    font_.loadFromFile("Anke.ttf");
+    font_.loadFromFile("resources/Bebas-Regular.ttf");
     fpsText_.setFont(font_);
     fpsText_.setCharacterSize(24);
 
