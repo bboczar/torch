@@ -46,6 +46,11 @@ void MainMenu::moveDown()
     menuElements_[activeEntry_].setFillColor(sf::Color::Red);
 }
 
+MainMenu::MenuElement MainMenu::selectEntry()
+{
+    return activeEntry_;
+}
+
 void MainMenu::placeAccordingToSize(const float width, const float height)
 {
     menuElements_[MenuElement_Start].setPosition(sf::Vector2f(width / 2, height / (MenuElement_Count + 1) * 1));

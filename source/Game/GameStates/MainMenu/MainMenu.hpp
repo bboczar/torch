@@ -16,11 +16,6 @@ public:
 
     virtual void draw(sf::RenderWindow& window) final;
 
-    void moveUp();
-    void moveDown();
-
-private:
-
     enum MenuElement
     {
         MenuElement_Start,
@@ -29,6 +24,11 @@ private:
         MenuElement_Count
     };
 
+    void moveUp();
+    void moveDown();
+    MenuElement selectEntry();
+
+private:
     void placeAccordingToSize(const float width, const float height);
 
     MenuElement activeEntry_{MenuElement_Start};

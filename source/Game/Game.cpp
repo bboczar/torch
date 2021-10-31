@@ -19,11 +19,26 @@ int Game::loop()
 {
     while (window_.isOpen())
     {
+        if (gameStates_.empty())
+        {
+            return 0;
+        }
+
         float fps =  1/(clock_.restart().asSeconds());
         fpsText_.setString(std::to_string(fps));
 
         auto& currentState = gameStates_.top();
-        currentState->handleEvents();
+        const auto desiredState = currentState->handleEvents();
+        {
+            if (!desiredState)
+            {
+                gameStates_.pop();
+                continue;
+            }
+
+            // TODO: add support for state change
+        }
+           
         currentState->update();
 
         window_.clear(sf::Color::Black);

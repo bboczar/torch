@@ -15,9 +15,11 @@ MainMenuState::MainMenuState(
 {
 }
 
-void MainMenuState::handleEvents()
+std::optional<GameStateType> MainMenuState::handleEvents()
 {
+    std::optional<GameStateType> resultState = GameStateType::MainMenu;
     sf::Event event;
+
     while (window_.pollEvent(event))
     {
         switch (event.type)
@@ -29,13 +31,14 @@ void MainMenuState::handleEvents()
                 window_.setSize(sf::Vector2u(event.size.width, event.size.height));
                 break;
             case sf::Event::KeyReleased:
-                handleKeyPressed(event);
-                break;
+                resultState = handleKeyPressed(event);
             default:
                 // No need to handle other events
                 break;
         }
     }
+
+    return resultState;
 }
 
 void MainMenuState::update()
@@ -48,12 +51,9 @@ void MainMenuState::draw()
     menu_.draw(window_);
 }
 
-void MainMenuState::handleKeyPressed(const sf::Event event)
+std::optional<GameStateType> MainMenuState::handleKeyPressed(const sf::Event event)
 {
-    if (event.type != sf::Event::KeyReleased)
-    {
-        return;
-    }
+    std::optional<GameStateType> resultState = GameStateType::MainMenu;
 
     switch (event.key.code)
     {
@@ -63,12 +63,32 @@ void MainMenuState::handleKeyPressed(const sf::Event event)
         case sf::Keyboard::Down:
             menu_.moveDown();
             break;
+        case sf::Keyboard::Enter:
+            resultState = resolveState(menu_.selectEntry());
+            break;
         case sf::Keyboard::Escape:
+            window_.close();
             break;
         default:
             break;
     }
 
+    return resultState;
+}
+
+std::optional<GameStateType> MainMenuState::resolveState(mainmenu::MainMenu::MenuElement entry)
+{
+    switch (entry)
+    {
+        case mainmenu::MainMenu::MenuElement_Start:
+            return GameStateType::GamePlay;
+        case mainmenu::MainMenu::MenuElement_Options:
+            return GameStateType::Options;
+        case mainmenu::MainMenu::MenuElement_Exit:
+            return std::nullopt;
+        default:
+            return std::nullopt;
+    }
 }
 
 }  // namespace gamestates
