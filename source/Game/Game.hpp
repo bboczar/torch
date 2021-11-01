@@ -19,6 +19,14 @@ public:
 
 private:
     void setupWindow();
+    void setupResources();
+    void updateFps();
+    void draw();
+
+    void dropState();
+    void pushState(const GameStateType stateType);
+    bool hasState() const;
+    std::unique_ptr<GameState>& currentState();
 
     sf::RenderWindow window_;
     sf::Font font_;

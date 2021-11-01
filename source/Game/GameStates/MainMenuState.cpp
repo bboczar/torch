@@ -48,12 +48,18 @@ void MainMenuState::update()
 
 void MainMenuState::draw()
 {
+    window_.clear(sf::Color::Black);
     menu_.draw(window_);
 }
 
-std::optional<GameStateType> MainMenuState::handleKeyPressed(const sf::Event event)
+GameStateType MainMenuState::type() const
 {
-    std::optional<GameStateType> resultState = GameStateType::MainMenu;
+    return GameStateType::MainMenu;
+}
+
+DesiredState MainMenuState::handleKeyPressed(const sf::Event event)
+{
+    DesiredState state = GameStateType::MainMenu;
 
     switch (event.key.code)
     {
@@ -64,7 +70,7 @@ std::optional<GameStateType> MainMenuState::handleKeyPressed(const sf::Event eve
             menu_.moveDown();
             break;
         case sf::Keyboard::Enter:
-            resultState = resolveState(menu_.selectEntry());
+            state = resolveState(menu_.selectEntry());
             break;
         case sf::Keyboard::Escape:
             window_.close();
@@ -73,10 +79,10 @@ std::optional<GameStateType> MainMenuState::handleKeyPressed(const sf::Event eve
             break;
     }
 
-    return resultState;
+    return state;
 }
 
-std::optional<GameStateType> MainMenuState::resolveState(mainmenu::MainMenu::MenuElement entry)
+DesiredState MainMenuState::resolveState(mainmenu::MainMenu::MenuElement entry)
 {
     switch (entry)
     {
