@@ -24,6 +24,8 @@ private:
     sf::RenderWindow& window_;
 
     sf::Font font_;
+    sf::Sprite background_;
+    sf::Texture backgroundTexture_;
 };
 
 }  // namespace gamestates

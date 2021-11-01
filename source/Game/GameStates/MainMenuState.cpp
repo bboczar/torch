@@ -28,6 +28,7 @@ std::optional<GameStateType> MainMenuState::handleEvents()
                 window_.close();
                 break;
             case sf::Event::Resized:
+                // TODO: fix
                 window_.setSize(sf::Vector2u(event.size.width, event.size.height));
                 break;
             case sf::Event::KeyReleased:

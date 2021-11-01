@@ -12,7 +12,10 @@ GamePlayState::GamePlayState(
     sf::Font font)
     : window_(window)
     , font_(font)
+    , background_()
 {
+    backgroundTexture_.loadFromFile("resources/map.png");
+    background_.setTexture(backgroundTexture_);
 }
 
 std::optional<GameStateType> GamePlayState::handleEvents()
@@ -28,6 +31,7 @@ std::optional<GameStateType> GamePlayState::handleEvents()
                 window_.close();
                 break;
             case sf::Event::Resized:
+                // TODO: fix
                 window_.setSize(sf::Vector2u(event.size.width, event.size.height));
                 break;
             case sf::Event::KeyReleased:
@@ -49,14 +53,7 @@ void GamePlayState::update()
 void GamePlayState::draw()
 {
     window_.clear(sf::Color::Black);
-
-    sf::Text text;
-    text.setFont(font_);
-    text.setFillColor(sf::Color::Yellow);
-    text.setString("GAMEPLAY");
-    text.setPosition(sf::Vector2f(window_.getSize().x / 2, window_.getSize().y / 2));
-
-    window_.draw(text);
+    window_.draw(background_);
 }
 
 GameStateType GamePlayState::type() const
