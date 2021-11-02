@@ -1,4 +1,5 @@
 # Subdirs
+add_subdirectory(GamePlay)
 add_subdirectory(MainMenu)
 
 set(SOURCES

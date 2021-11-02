@@ -12,10 +12,7 @@ GamePlayState::GamePlayState(
     sf::Font font)
     : window_(window)
     , font_(font)
-    , background_()
 {
-    backgroundTexture_.loadFromFile("resources/map.png");
-    background_.setTexture(backgroundTexture_);
 }
 
 std::optional<GameStateType> GamePlayState::handleEvents()
@@ -53,7 +50,7 @@ void GamePlayState::update()
 void GamePlayState::draw()
 {
     window_.clear(sf::Color::Black);
-    window_.draw(background_);
+    background_.draw(window_);
 }
 
 GameStateType GamePlayState::type() const

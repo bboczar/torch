@@ -3,6 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <Game/GameState.hpp>
+#include <Game/GameStates/GamePlay/Background.hpp>
 
 namespace game
 {
@@ -21,11 +22,10 @@ private:
     DesiredState handleKeyPressed(const sf::Event event);
     DesiredState resolveState();
 
-    sf::RenderWindow& window_;
+    gameplay::Backgorund background_;
 
+    sf::RenderWindow& window_;
     sf::Font font_;
-    sf::Sprite background_;
-    sf::Texture backgroundTexture_;
 };
 
 }  // namespace gamestates
