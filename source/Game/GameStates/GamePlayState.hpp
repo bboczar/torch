@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <Game/GameState.hpp>
-#include <Game/GameStates/GamePlay/Background.hpp>
+#include <Game/GameStates/GamePlay/GamePlay.hpp>
 
 namespace game
 {
@@ -22,7 +22,7 @@ private:
     DesiredState handleKeyPressed(const sf::Event event);
     DesiredState resolveState();
 
-    gameplay::Backgorund background_;
+    gameplay::GamePlay gamePlay_;
 
     sf::RenderWindow& window_;
     sf::Font font_;

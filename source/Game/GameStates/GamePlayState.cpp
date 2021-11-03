@@ -50,7 +50,7 @@ void GamePlayState::update()
 void GamePlayState::draw()
 {
     window_.clear(sf::Color::Black);
-    background_.draw(window_);
+    gamePlay_.draw(window_);
 }
 
 GameStateType GamePlayState::type() const
