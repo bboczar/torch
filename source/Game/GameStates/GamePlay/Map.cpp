@@ -1,4 +1,4 @@
-#include <Game/GameStates/GamePlay/GamePlay.hpp>
+#include <Game/GameStates/GamePlay/Map.hpp>
 
 namespace game
 {
@@ -7,16 +7,16 @@ namespace gamestates
 namespace gameplay
 {
 
-GamePlay::GamePlay()
+Map::Map()
 {
 }
 
-void GamePlay::draw(sf::RenderWindow& window)
+void Map::draw(sf::RenderWindow& window)
 {
-    map_.draw(window);
+    background_.draw(window);
 }
 
-void GamePlay::update()
+void Map::update()
 {
     return;
 }

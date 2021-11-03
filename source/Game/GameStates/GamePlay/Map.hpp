@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <Game/GameStates/GamePlay/Map.hpp>
+#include <Game/GameStates/GamePlay/Background.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 #include <Game/Traits/Updatable.hpp>
 
@@ -13,16 +13,16 @@ namespace gamestates
 namespace gameplay
 {
 
-class GamePlay : public traits::DrawingObject, traits::Updatable
+class Map : public traits::DrawingObject, traits::Updatable
 {
 public:
-    GamePlay();
+    Map();
 
     virtual void draw(sf::RenderWindow& window) final;
     virtual void update() final;
 
 private:
-    Map map_;
+    Backgorund background_;
 };
 
 }  // namespace gameplay
