@@ -14,11 +14,24 @@ Map::Map()
 void Map::draw(sf::RenderWindow& window)
 {
     background_.draw(window);
+
+    for (auto& mob : mobs_)
+    {
+        mob.draw(window);
+    }
 }
 
 void Map::update()
 {
-    return;
+    if (mobs_.empty())
+    {
+        mobs_.emplace_back();
+    }
+
+    for (auto& mob : mobs_)
+    {
+        mob.update();
+    }
 }
 
 }  // namespace gameplay

@@ -22,8 +22,8 @@ target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
 
 #copy resources
 set(fonts Bebas-Regular.ttf)
-set(images map.png)
-set(resources ${images} ${fonts})
+set(textures map.png spider.png)
+set(resources ${textures} ${fonts})
 foreach(item IN LISTS resources)
     add_custom_command(
         TARGET Torch POST_BUILD

@@ -34,7 +34,8 @@ int Game::loop()
                 continue;
             }
         }
-           
+        
+        // TODO: implement delta time in update
         state->update();
         state->draw();
 

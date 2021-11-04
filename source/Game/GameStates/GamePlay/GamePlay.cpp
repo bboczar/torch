@@ -18,7 +18,7 @@ void GamePlay::draw(sf::RenderWindow& window)
 
 void GamePlay::update()
 {
-    return;
+    map_.update();
 }
 
 }  // namespace gameplay

@@ -1,11 +1,7 @@
 #pragma once
 
-#include <vector>
-
 #include <SFML/Graphics.hpp>
 
-#include <Game/GameStates/GamePlay/Background.hpp>
-#include <Game/GameStates/GamePlay/Mob.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 #include <Game/Traits/Updatable.hpp>
 
@@ -16,17 +12,25 @@ namespace gamestates
 namespace gameplay
 {
 
-class Map : public traits::DrawingObject, traits::Updatable
+class Mob : public traits::DrawingObject, traits::Updatable
 {
 public:
-    Map();
+    Mob();
 
     virtual void draw(sf::RenderWindow& window) final;
     virtual void update() final;
 
+    sf::Vector2f position() const;
+    void hit(const unsigned damage);
+
 private:
-    std::vector<Mob> mobs_;
-    Backgorund background_;
+    unsigned heathPoints_;
+    float speed_;
+    sf::Vector2f position_;
+    std::vector<sf::Vector2f> path_;
+
+    sf::Sprite sprite_;
+    sf::Texture texture_;
 };
 
 }  // namespace gameplay

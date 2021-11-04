@@ -44,7 +44,7 @@ std::optional<GameStateType> GamePlayState::handleEvents()
 
 void GamePlayState::update()
 {
-    return;
+    gamePlay_.update();
 }
 
 void GamePlayState::draw()
