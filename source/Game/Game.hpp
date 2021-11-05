@@ -20,8 +20,10 @@ public:
 private:
     void setupWindow();
     void setupResources();
-    void updateFps();
+    void updateFps(const float deltaTimeSec);
     void draw();
+
+    float elapsedTime();
 
     void dropState();
     void pushState(const GameStateType stateType);

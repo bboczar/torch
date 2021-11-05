@@ -17,7 +17,9 @@ int Game::loop()
 {
     while (window_.isOpen() and hasState())
     {
-        updateFps();
+        const float deltaTimeSec = elapsedTime();
+
+        updateFps(deltaTimeSec);
 
         auto& state = currentState();
         const auto desiredState = state->handleEvents();
@@ -36,7 +38,7 @@ int Game::loop()
         }
         
         // TODO: implement delta time in update
-        state->update();
+        state->update(deltaTimeSec);
         state->draw();
 
         draw();
@@ -59,9 +61,9 @@ void Game::setupResources()
     fpsText_.setCharacterSize(16);
 }
 
-void Game::updateFps()
+void Game::updateFps(const float deltaTimeSec)
 {
-    float fps =  1/(clock_.restart().asSeconds());
+    const float fps =  1/(deltaTimeSec);
     fpsText_.setString(std::to_string(fps));   
 }
 
@@ -69,6 +71,11 @@ void Game::draw()
 {
     window_.draw(fpsText_);
     window_.display();
+}
+
+float Game::elapsedTime()
+{
+    return clock_.restart().asSeconds();
 }
 
 void Game::dropState()

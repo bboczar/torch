@@ -1,5 +1,7 @@
 #pragma once
 
+#include <stack>
+
 #include <SFML/Graphics.hpp>
 
 #include <Game/Traits/DrawingObject.hpp>
@@ -18,16 +20,17 @@ public:
     Mob();
 
     virtual void draw(sf::RenderWindow& window) final;
-    virtual void update() final;
+    virtual void update(const float deltaTimeSec) final;
 
     sf::Vector2f position() const;
     void hit(const unsigned damage);
+    bool alive() const;
 
 private:
     unsigned heathPoints_;
     float speed_;
     sf::Vector2f position_;
-    std::vector<sf::Vector2f> path_;
+    std::stack<sf::Vector2f> path_;
 
     sf::Sprite sprite_;
     sf::Texture texture_;

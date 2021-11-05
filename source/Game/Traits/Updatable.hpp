@@ -8,7 +8,7 @@ namespace traits
 class Updatable
 {
 public:
-    virtual void update() = 0;
+    virtual void update(const float) = 0;
 };
 
 }  // namespace traits

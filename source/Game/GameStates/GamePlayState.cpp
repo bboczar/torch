@@ -42,9 +42,9 @@ std::optional<GameStateType> GamePlayState::handleEvents()
     return resultState;
 }
 
-void GamePlayState::update()
+void GamePlayState::update(const float deltaTimeSec)
 {
-    gamePlay_.update();
+    gamePlay_.update(deltaTimeSec);
 }
 
 void GamePlayState::draw()

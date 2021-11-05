@@ -16,9 +16,9 @@ void GamePlay::draw(sf::RenderWindow& window)
     map_.draw(window);
 }
 
-void GamePlay::update()
+void GamePlay::update(const float deltaTimeSec)
 {
-    map_.update();
+    map_.update(deltaTimeSec);
 }
 
 }  // namespace gameplay

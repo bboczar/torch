@@ -22,7 +22,7 @@ public:
     Map();
 
     virtual void draw(sf::RenderWindow& window) final;
-    virtual void update() final;
+    virtual void update(const float deltaTimeSec) final;
 
 private:
     std::vector<Mob> mobs_;

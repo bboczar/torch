@@ -42,7 +42,7 @@ std::optional<GameStateType> MainMenuState::handleEvents()
     return resultState;
 }
 
-void MainMenuState::update()
+void MainMenuState::update(const float)
 {
     return;
 }

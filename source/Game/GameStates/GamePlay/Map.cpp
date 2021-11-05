@@ -21,7 +21,7 @@ void Map::draw(sf::RenderWindow& window)
     }
 }
 
-void Map::update()
+void Map::update(const float deltaTimeSec)
 {
     if (mobs_.empty())
     {
@@ -30,7 +30,7 @@ void Map::update()
 
     for (auto& mob : mobs_)
     {
-        mob.update();
+        mob.update(deltaTimeSec);
     }
 }
 

@@ -15,7 +15,7 @@ class GamePlayState : public GameState
 public:
     GamePlayState(sf::RenderWindow& window, sf::Font font);
     DesiredState handleEvents() final;
-    void update() final;
+    void update(const float deltaTimeSec) final;
     void draw() final;
     GameStateType type() const final;
 private:

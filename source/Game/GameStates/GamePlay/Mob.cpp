@@ -10,7 +10,7 @@ namespace gameplay
 {
 
 Mob::Mob()
-    : speed_(0.25)
+    : speed_(20)
     , position_({0, 0})
 {
     texture_.loadFromFile("resources/spider.png");
@@ -23,10 +23,16 @@ void Mob::draw(sf::RenderWindow& window)
     window.draw(sprite_);
 }
 
-void Mob::update()
+void Mob::update(const float deltaTimeSec)
 {
-    position_.x = position_.x + speed_;
-    position_.y = position_.y + speed_;
+    if (!alive())
+    {
+        // This should not happen?
+        return;
+    }
+
+    position_.x += deltaTimeSec * speed_;
+    position_.y += deltaTimeSec * speed_;
     sprite_.setPosition(position_);
 }
 
@@ -38,6 +44,11 @@ sf::Vector2f Mob::position() const
 void Mob::hit(const unsigned damage)
 {
     return;
+}
+
+bool Mob::alive() const
+{
+    return heathPoints_ > 0;
 }
 
 }  // namespace gameplay

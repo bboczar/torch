@@ -19,7 +19,7 @@ class GameState
 {
 public:
     virtual DesiredState handleEvents() = 0;
-    virtual void update() = 0;
+    virtual void update(const float) = 0;
     virtual void draw() = 0;
     virtual GameStateType type() const = 0;
 };
