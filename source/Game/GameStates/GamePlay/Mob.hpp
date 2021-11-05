@@ -27,6 +27,9 @@ public:
     bool alive() const;
 
 private:
+    void move(const float deltaTimeSec);
+    float calcNewPosition(const float current, const float destination, const float distance);
+
     unsigned heathPoints_;
     float speed_;
     sf::Vector2f position_;
