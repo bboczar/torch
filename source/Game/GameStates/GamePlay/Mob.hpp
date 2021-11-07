@@ -29,6 +29,7 @@ public:
 private:
     void move(const float deltaTimeSec);
     float calcNewPosition(const float current, const float destination, const float distance);
+    void die();
 
     unsigned heathPoints_;
     float speed_;

@@ -19,6 +19,11 @@ void Map::draw(sf::RenderWindow& window)
     {
         mob.draw(window);
     }
+
+    for (auto& tower : towers_)
+    {
+        tower.draw(window);
+    }
 }
 
 void Map::update(const float deltaTimeSec)
@@ -26,11 +31,17 @@ void Map::update(const float deltaTimeSec)
     if (mobs_.empty())
     {
         mobs_.emplace_back();
+        towers_.emplace_back();
     }
 
     for (auto& mob : mobs_)
     {
         mob.update(deltaTimeSec);
+    }
+
+    for (auto& tower : towers_)
+    {
+        tower.update(deltaTimeSec);
     }
 }
 

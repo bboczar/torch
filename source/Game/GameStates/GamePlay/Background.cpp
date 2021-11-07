@@ -1,5 +1,7 @@
 #include <Game/GameStates/GamePlay/Background.hpp>
 
+#include <cassert>
+
 namespace game
 {
 namespace gamestates
@@ -9,7 +11,10 @@ namespace gameplay
 
 Backgorund::Backgorund()
 {
-    backgroundTexture_.loadFromFile("resources/map.png");
+    if (!backgroundTexture_.loadFromFile("resources/map.png"))
+    {
+        assert(false && "Missing background texture");
+    }
     background_.setTexture(backgroundTexture_);
 }
 

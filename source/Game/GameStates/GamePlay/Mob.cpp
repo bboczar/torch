@@ -1,6 +1,6 @@
 #include <Game/GameStates/GamePlay/Mob.hpp>
 
-#include <iostream>
+#include <cassert>
 
 namespace game
 {
@@ -10,17 +10,24 @@ namespace gameplay
 {
 
 Mob::Mob()
-    : speed_(50)
+    : speed_(150)
     , position_({0, 210})
-    , path_({{190,90}, {190,210}})  // TODO: unhardcode
+    , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
 {
-    texture_.loadFromFile("resources/spider.png");
+    if (!texture_.loadFromFile("resources/spider.png"))
+    {
+        assert(false && "Missing mob texture");
+    }
     sprite_.setTexture(texture_);
     sprite_.setPosition(position_);
 }
 
 void Mob::draw(sf::RenderWindow& window)
 {
+    unsigned x = position_.x - (texture_.getSize().x / 2);
+    unsigned y = position_.y - (texture_.getSize().y / 2);
+    sprite_.setPosition(x, y);
+
     window.draw(sprite_);
 }
 
@@ -33,10 +40,6 @@ void Mob::update(const float deltaTimeSec)
     }
 
     move(deltaTimeSec);
-
-    unsigned x = position_.x - (texture_.getSize().x / 2);
-    unsigned y = position_.y - (texture_.getSize().y / 2);
-    sprite_.setPosition(x, y);
 }
 
 sf::Vector2f Mob::position() const
@@ -46,9 +49,16 @@ sf::Vector2f Mob::position() const
 
 void Mob::hit(const unsigned damage)
 {
-    return;
+    if (damage > heathPoints_)
+    {
+        heathPoints_ -= damage;
+        return;
+    }
+
+    die();
 }
 
+// TODO: Distinguish killed vs reached destination
 bool Mob::alive() const
 {
     return heathPoints_ > 0;
@@ -58,7 +68,8 @@ void Mob::move(const float deltaTimeSec)
 {
     if (path_.empty())
     {
-        // TODO: Mod should die and life should be lost
+        // TODO: Life should be lost
+        die();
         return;
     }
 
@@ -91,8 +102,12 @@ float Mob::calcNewPosition(const float current, const float destination, const f
 
     return destination > current
         ? current + distance
-        : current - distance;
-    
+        : current - distance; 
+}
+
+void Mob::die()
+{
+    return;
 }
 
 }  // namespace gameplay
