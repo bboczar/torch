@@ -28,7 +28,7 @@ void Map::draw(sf::RenderWindow& window)
 
 void Map::update(const float deltaTimeSec)
 {
-    if (mobs_.empty())
+    if (mobs_.empty())  // TODO: remove, temporary for testing
     {
         mobs_.emplace_back();
         towers_.emplace_back();
@@ -41,8 +41,18 @@ void Map::update(const float deltaTimeSec)
 
     for (auto& tower : towers_)
     {
-        tower.update(deltaTimeSec);
+        tower.update(deltaTimeSec, mobs_);
     }
+
+    dropDeadMobs();
+}
+
+void Map::dropDeadMobs()
+{
+    mobs_.erase(
+        std::remove_if(mobs_.begin(), mobs_.end(), [](const Mob& m){ return !m.alive(); }),
+        mobs_.end()
+    );
 }
 
 }  // namespace gameplay

@@ -26,6 +26,8 @@ public:
     virtual void update(const float deltaTimeSec) final;
 
 private:
+    void dropDeadMobs();
+
     std::vector<Mob> mobs_;
     std::vector<Tower> towers_;
     Backgorund background_;
