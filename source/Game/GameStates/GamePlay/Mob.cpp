@@ -1,5 +1,7 @@
 #include <Game/GameStates/GamePlay/Mob.hpp>
 
+#include <iostream>
+
 #include <cassert>
 
 namespace game
@@ -10,7 +12,8 @@ namespace gameplay
 {
 
 Mob::Mob()
-    : speed_(150)
+    : heathPoints_(100)
+    , speed_(150)
     , position_({0, 210})
     , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
 {
@@ -20,6 +23,8 @@ Mob::Mob()
     }
     sprite_.setTexture(texture_);
     sprite_.setPosition(position_);
+
+    std::cout << "Mob created" << std::endl;
 }
 
 void Mob::draw(sf::RenderWindow& window)

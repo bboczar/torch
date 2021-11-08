@@ -4,7 +4,6 @@
 
 #include <Game/GameStates/GamePlay/Map.hpp>
 #include <Game/Traits/DrawingObject.hpp>
-#include <Game/Traits/Updatable.hpp>
 
 namespace game
 {
@@ -13,13 +12,13 @@ namespace gamestates
 namespace gameplay
 {
 
-class GamePlay : public traits::DrawingObject, traits::Updatable
+class GamePlay : public traits::DrawingObject
 {
 public:
     GamePlay();
 
     virtual void draw(sf::RenderWindow& window) final;
-    virtual void update(const float deltaTimeSec) final;
+    void update(const float deltaTimeSec);
 
 private:
     Map map_;

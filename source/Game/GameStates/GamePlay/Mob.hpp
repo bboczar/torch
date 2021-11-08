@@ -5,7 +5,6 @@
 #include <SFML/Graphics.hpp>
 
 #include <Game/Traits/DrawingObject.hpp>
-#include <Game/Traits/Updatable.hpp>
 
 namespace game
 {
@@ -14,13 +13,13 @@ namespace gamestates
 namespace gameplay
 {
 
-class Mob : public traits::DrawingObject, traits::Updatable
+class Mob : public traits::DrawingObject
 {
 public:
     Mob();
 
     virtual void draw(sf::RenderWindow& window) final;
-    virtual void update(const float deltaTimeSec) final;
+    void update(const float deltaTimeSec);
 
     sf::Vector2f position() const;
     void hit(const unsigned damage);

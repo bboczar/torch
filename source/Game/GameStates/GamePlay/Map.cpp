@@ -28,7 +28,7 @@ void Map::draw(sf::RenderWindow& window)
 
 void Map::update(const float deltaTimeSec)
 {
-    if (mobs_.empty())  // TODO: remove, temporary for testing
+    if (towers_.empty())  // TODO: remove, temporary for testing
     {
         mobs_.emplace_back();
         towers_.emplace_back();

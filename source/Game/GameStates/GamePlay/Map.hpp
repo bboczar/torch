@@ -8,7 +8,6 @@
 #include <Game/GameStates/GamePlay/Mob.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
 #include <Game/Traits/DrawingObject.hpp>
-#include <Game/Traits/Updatable.hpp>
 
 namespace game
 {
@@ -17,13 +16,13 @@ namespace gamestates
 namespace gameplay
 {
 
-class Map : public traits::DrawingObject, traits::Updatable
+class Map : public traits::DrawingObject
 {
 public:
     Map();
 
     virtual void draw(sf::RenderWindow& window) final;
-    virtual void update(const float deltaTimeSec) final;
+    void update(const float deltaTimeSec);
 
 private:
     void dropDeadMobs();
