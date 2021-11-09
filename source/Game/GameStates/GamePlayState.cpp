@@ -32,7 +32,11 @@ std::optional<GameStateType> GamePlayState::handleEvents()
                 window_.setSize(sf::Vector2u(event.size.width, event.size.height));
                 break;
             case sf::Event::KeyReleased:
-                resultState = handleKeyPressed(event);
+                resultState = handleKeyReleased(event);
+                break;
+            case sf::Event::MouseButtonPressed:
+                handleMouseButtonPressed(event);
+                break;
             default:
                 // No need to handle other events
                 break;
@@ -58,7 +62,7 @@ GameStateType GamePlayState::type() const
     return GameStateType::GamePlay;
 }
 
-DesiredState GamePlayState::handleKeyPressed(const sf::Event event)
+DesiredState GamePlayState::handleKeyReleased(const sf::Event event)
 {
     DesiredState state = GameStateType::GamePlay;
 
@@ -71,6 +75,18 @@ DesiredState GamePlayState::handleKeyPressed(const sf::Event event)
     }
 
     return state;
+}
+
+void GamePlayState::handleMouseButtonPressed(const sf::Event event)
+{
+    switch (event.mouseButton.button)
+    {
+        case sf::Mouse::Left:
+            gamePlay_.requestTower(event.mouseButton.x, event.mouseButton.y);
+            break;
+        default:
+            break;
+    }
 }
 
 }  // namespace gamestates

@@ -19,8 +19,8 @@ public:
     void draw() final;
     GameStateType type() const final;
 private:
-    DesiredState handleKeyPressed(const sf::Event event);
-    DesiredState resolveState();
+    DesiredState handleKeyReleased(const sf::Event event);
+    void handleMouseButtonPressed(const sf::Event event);
 
     gameplay::GamePlay gamePlay_;
 

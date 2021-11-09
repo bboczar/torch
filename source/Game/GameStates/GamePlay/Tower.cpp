@@ -2,7 +2,6 @@
 
 #include <iostream>
 
-#include <cassert>
 #include <cmath>
 
 namespace game
@@ -12,27 +11,22 @@ namespace gamestates
 namespace gameplay
 {
 
-Tower::Tower()
+Tower::Tower(const int x, const int y, const sf::Texture& texture)
     : range_(350)
     , cooldown_(sf::seconds(1.0))
-    , position_({240, 260})
+    , position_({x, y})
 {
-    if (!texture_.loadFromFile("resources/tower.png"))
-    {
-        assert(false && "Missing tower texture");
-    }
-
     clock_.restart();
 
-    sprite_.setTexture(texture_);
-    sprite_.setPosition(position_);
+    sprite_.setTexture(texture);
+    sprite_.setPosition(float(x), float(y));
 }
 
 void Tower::draw(sf::RenderWindow& window)
 {
-    unsigned x = position_.x - (texture_.getSize().x / 2);
-    unsigned y = position_.y - (texture_.getSize().y / 2);
-    sprite_.setPosition(x, y);
+    unsigned x = position_.x - (sprite_.getTexture()->getSize().x / 2);
+    unsigned y = position_.y - (sprite_.getTexture()->getSize().y / 2);
+    sprite_.setPosition(float(x), float(y));
 
     window.draw(sprite_);
 }
@@ -61,7 +55,7 @@ bool Tower::inRange(const Mob& mob) const
 {
     const auto& mobPosition = mob.position();
     const auto& distance = sqrt(
-        pow(mobPosition.x - position_.x, 2.0) + pow(mobPosition.y - position_.y, 2.0));
+        pow(mobPosition.x - position_.x, 2) + pow(mobPosition.y - position_.y, 2));
     return range_ >= distance;
 }
 

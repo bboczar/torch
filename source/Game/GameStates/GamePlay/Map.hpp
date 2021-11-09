@@ -23,6 +23,7 @@ public:
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
+    void requestTower(const int x, const int y);
 
 private:
     void dropDeadMobs();
@@ -30,6 +31,8 @@ private:
     std::vector<Mob> mobs_;
     std::vector<Tower> towers_;
     Backgorund background_;
+
+    sf::Texture towerTexture_;
 };
 
 }  // namespace gameplay

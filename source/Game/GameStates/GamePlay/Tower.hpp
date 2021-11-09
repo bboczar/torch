@@ -15,7 +15,7 @@ namespace gameplay
 class Tower : public traits::DrawingObject
 {
 public:
-    Tower();
+    Tower(const int x, const int y, const sf::Texture& texture);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec, const std::vector<Mob>& mobs);
@@ -26,12 +26,11 @@ private:
 
     unsigned range_;
     sf::Time cooldown_;
-    sf::Vector2f position_;
+    sf::Vector2i position_;
 
     sf::Clock clock_;
 
     sf::Sprite sprite_;
-    sf::Texture texture_;
 };
 
 }  // namespace gameplay

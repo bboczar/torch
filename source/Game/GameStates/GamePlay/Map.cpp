@@ -1,5 +1,7 @@
 #include <Game/GameStates/GamePlay/Map.hpp>
 
+#include <cassert>
+
 namespace game
 {
 namespace gamestates
@@ -9,6 +11,11 @@ namespace gameplay
 
 Map::Map()
 {
+    if (!towerTexture_.loadFromFile("resources/tower.png"))
+    {
+        assert(false && "Missing tower texture");
+    }
+
 }
 
 void Map::draw(sf::RenderWindow& window)
@@ -28,10 +35,9 @@ void Map::draw(sf::RenderWindow& window)
 
 void Map::update(const float deltaTimeSec)
 {
-    if (towers_.empty())  // TODO: remove, temporary for testing
+    if (mobs_.empty())  // TODO: remove, temporary for testing
     {
         mobs_.emplace_back();
-        towers_.emplace_back();
     }
 
     for (auto& mob : mobs_)
@@ -45,6 +51,11 @@ void Map::update(const float deltaTimeSec)
     }
 
     dropDeadMobs();
+}
+
+void Map::requestTower(const int x, const int y)
+{
+   towers_.emplace_back(x, y, towerTexture_);
 }
 
 void Map::dropDeadMobs()
