@@ -33,6 +33,8 @@ private:
     Backgorund background_;
 
     sf::Texture towerTexture_;
+    sf::Texture mobTexture_;
+    sf::Texture backgroundTexture_;
 };
 
 }  // namespace gameplay

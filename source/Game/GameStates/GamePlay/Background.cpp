@@ -10,12 +10,11 @@ namespace gameplay
 {
 
 Backgorund::Backgorund()
+{}
+
+void Backgorund::setTexture(const sf::Texture& texture)
 {
-    if (!backgroundTexture_.loadFromFile("resources/map.png"))
-    {
-        assert(false && "Missing background texture");
-    }
-    background_.setTexture(backgroundTexture_);
+    background_.setTexture(texture);
 }
 
 void Backgorund::draw(sf::RenderWindow& window)

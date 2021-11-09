@@ -1,9 +1,5 @@
 #include <Game/GameStates/GamePlay/Mob.hpp>
 
-#include <iostream>
-
-#include <cassert>
-
 namespace game
 {
 namespace gamestates
@@ -11,26 +7,20 @@ namespace gamestates
 namespace gameplay
 {
 
-Mob::Mob()
+Mob::Mob(const sf::Texture& texture)
     : heathPoints_(100)
     , speed_(150)
     , position_({0, 210})
     , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
 {
-    if (!texture_.loadFromFile("resources/spider.png"))
-    {
-        assert(false && "Missing mob texture");
-    }
-    sprite_.setTexture(texture_);
+    sprite_.setTexture(texture);
     sprite_.setPosition(position_);
-
-    std::cout << "Mob created" << std::endl;
 }
 
 void Mob::draw(sf::RenderWindow& window)
 {
-    unsigned x = position_.x - (texture_.getSize().x / 2);
-    unsigned y = position_.y - (texture_.getSize().y / 2);
+    unsigned x = position_.x - (sprite_.getTexture()->getSize().x / 2);
+    unsigned y = position_.y - (sprite_.getTexture()->getSize().y / 2);
     sprite_.setPosition(x, y);
 
     window.draw(sprite_);
@@ -110,6 +100,7 @@ float Mob::calcNewPosition(const float current, const float destination, const f
         : current - distance; 
 }
 
+// TODO: implement
 void Mob::die()
 {
     return;

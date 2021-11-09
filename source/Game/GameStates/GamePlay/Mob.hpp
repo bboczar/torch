@@ -16,13 +16,15 @@ namespace gameplay
 class Mob : public traits::DrawingObject
 {
 public:
-    Mob();
+    Mob(const sf::Texture& texture);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
 
     sf::Vector2f position() const;
     void hit(const unsigned damage);
+
+    // TODO: introduce enum for Mob state
     bool alive() const;
 
 private:
@@ -36,7 +38,6 @@ private:
     std::stack<sf::Vector2f> path_;
 
     sf::Sprite sprite_;
-    sf::Texture texture_;
 };
 
 }  // namespace gameplay

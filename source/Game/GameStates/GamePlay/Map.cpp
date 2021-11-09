@@ -16,6 +16,17 @@ Map::Map()
         assert(false && "Missing tower texture");
     }
 
+    if (!mobTexture_.loadFromFile("resources/spider.png"))
+    {
+        assert(false && "Missing mob texture");
+    }
+
+    if (!backgroundTexture_.loadFromFile("resources/map.png"))
+    {
+        assert(false && "Missing background texture");
+    }
+
+    background_.setTexture(backgroundTexture_);
 }
 
 void Map::draw(sf::RenderWindow& window)
@@ -37,7 +48,7 @@ void Map::update(const float deltaTimeSec)
 {
     if (mobs_.empty())  // TODO: remove, temporary for testing
     {
-        mobs_.emplace_back();
+        mobs_.emplace_back(mobTexture_);
     }
 
     for (auto& mob : mobs_)

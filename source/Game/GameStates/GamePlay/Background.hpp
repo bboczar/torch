@@ -17,10 +17,10 @@ public:
     Backgorund();
 
     virtual void draw(sf::RenderWindow& window) final;
+    void setTexture(const sf::Texture& texture);
 
 private:
     sf::Sprite background_;
-    sf::Texture backgroundTexture_;
 };
 
 }  // namespace gameplay
