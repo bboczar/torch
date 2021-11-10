@@ -48,7 +48,7 @@ void Map::update(const float deltaTimeSec)
 {
     if (mobs_.empty())  // TODO: remove, temporary for testing
     {
-        mobs_.emplace_back(mobTexture_);
+        mobs_.emplace_back(mapConfig_.getPath(), mobTexture_);
     }
 
     for (auto& mob : mobs_)

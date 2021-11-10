@@ -1,5 +1,7 @@
 #include <Game/GameStates/GamePlay/Mob.hpp>
 
+#include <ranges>
+
 namespace game
 {
 namespace gamestates
@@ -7,15 +9,25 @@ namespace gamestates
 namespace gameplay
 {
 
-Mob::Mob(const sf::Texture& texture)
+Mob::Mob(
+    const std::vector<sf::Vector2i>& path,
+    const sf::Texture& texture)
     : status_(MobStatus::Alive)
     , heathPoints_(100)
     , speed_(150)
-    , position_({0, 210})
-    , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
+    // , position_({0, 210})
+    // , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
 {
+    for (const auto& point : path | std::views::reverse)
+    {
+        path_.push(point);
+    }
+
+    position_ = path_.top();
+    path_.pop();
+
     sprite_.setTexture(texture);
-    sprite_.setPosition(position_);
+    sprite_.setPosition(position_.x, position_.y);
 }
 
 void Mob::draw(sf::RenderWindow& window)
@@ -37,7 +49,7 @@ void Mob::update(const float deltaTimeSec)
     move(deltaTimeSec);
 }
 
-sf::Vector2f Mob::position() const
+sf::Vector2i Mob::position() const
 {
     return position_;
 }
@@ -62,7 +74,6 @@ bool Mob::alive() const
 {
     return status_ == MobStatus::Alive;
 }
-
 
 void Mob::move(const float deltaTimeSec)
 {
@@ -107,7 +118,6 @@ void Mob::destinationReached()
 {
     status_ = MobStatus::Destination;
 }
-
 
 }  // namespace gameplay
 }  // namespace gamestates

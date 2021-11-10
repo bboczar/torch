@@ -5,6 +5,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <Game/GameStates/GamePlay/Background.hpp>
+#include <Game/GameStates/GamePlay/MapConfig.hpp>
 #include <Game/GameStates/GamePlay/Mob.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
 #include <Game/Traits/DrawingObject.hpp>
@@ -35,6 +36,8 @@ private:
     sf::Texture towerTexture_;
     sf::Texture mobTexture_;
     sf::Texture backgroundTexture_;
+
+    MapConfig mapConfig_;
 };
 
 }  // namespace gameplay

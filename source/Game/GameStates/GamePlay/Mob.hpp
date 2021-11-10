@@ -23,13 +23,13 @@ enum class MobStatus
 class Mob : public traits::DrawingObject
 {
 public:
-    Mob(const sf::Texture& texture);
+    Mob(const std::vector<sf::Vector2i>& path, const sf::Texture& texture);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
     void hit(const unsigned damage);
 
-    sf::Vector2f position() const;
+    sf::Vector2i position() const;
     MobStatus status() const;
     bool alive() const;
 
@@ -43,8 +43,8 @@ private:
     MobStatus status_;
     unsigned heathPoints_;
     float speed_;
-    sf::Vector2f position_;
-    std::stack<sf::Vector2f> path_;
+    sf::Vector2i position_;
+    std::stack<sf::Vector2i> path_;
 
     sf::Sprite sprite_;
 };

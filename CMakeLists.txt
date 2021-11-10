@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 3.8)
 project(Torch)
 
 # Compilation flags
-set(CMAKE_CXX_FLAGS "-std=c++17 ${CMAKE_CXX_FLAGS} -g -Wall -pedantic -Werror")
+set(CMAKE_CXX_FLAGS "-std=c++20 ${CMAKE_CXX_FLAGS} -g -Wall -pedantic -Werror")
 
 # Include dirs
 include_directories(${PROJECT_SOURCE_DIR}/source)
@@ -23,7 +23,8 @@ target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
 #copy resources
 set(fonts Bebas-Regular.ttf)
 set(textures map.png spider.png tower.png)
-set(resources ${textures} ${fonts})
+set(configs map_config.txt)
+set(resources ${textures} ${fonts} ${configs})
 foreach(item IN LISTS resources)
     add_custom_command(
         TARGET Torch POST_BUILD
