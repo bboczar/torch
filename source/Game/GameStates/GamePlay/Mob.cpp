@@ -8,7 +8,8 @@ namespace gameplay
 {
 
 Mob::Mob(const sf::Texture& texture)
-    : heathPoints_(100)
+    : status_(MobStatus::Alive)
+    , heathPoints_(100)
     , speed_(150)
     , position_({0, 210})
     , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
@@ -28,9 +29,8 @@ void Mob::draw(sf::RenderWindow& window)
 
 void Mob::update(const float deltaTimeSec)
 {
-    if (!alive())
+    if (status_ != MobStatus::Alive)
     {
-        // This should not happen?
         return;
     }
 
@@ -44,7 +44,7 @@ sf::Vector2f Mob::position() const
 
 void Mob::hit(const unsigned damage)
 {
-    if (damage > heathPoints_)
+    if (damage < heathPoints_)
     {
         heathPoints_ -= damage;
         return;
@@ -53,37 +53,35 @@ void Mob::hit(const unsigned damage)
     die();
 }
 
-// TODO: Distinguish killed vs reached destination
+MobStatus Mob::status() const
+{
+    return status_;
+}
+
 bool Mob::alive() const
 {
-    return heathPoints_ > 0;
+    return status_ == MobStatus::Alive;
 }
+
 
 void Mob::move(const float deltaTimeSec)
 {
-    if (path_.empty())
-    {
-        // TODO: Life should be lost
-        die();
-        return;
-    }
-
     const float distance = speed_ * deltaTimeSec;
     const auto destination = path_.top();
 
     if (position_.x == destination.x)
     {
         position_.y = calcNewPosition(position_.y, destination.y, distance);
-        return;
     }
-
-    if (position_.y == destination.y)
+    else if (position_.y == destination.y)
     {
         position_.x = calcNewPosition(position_.x, destination.x, distance);
-        return;
     }
 
-    // TODO: Handle this but should not happen
+    if (path_.empty())
+    {
+        destinationReached();
+    }
 }
 
 float Mob::calcNewPosition(const float current, const float destination, const float distance)
@@ -100,11 +98,16 @@ float Mob::calcNewPosition(const float current, const float destination, const f
         : current - distance; 
 }
 
-// TODO: implement
 void Mob::die()
 {
-    return;
+    status_ = MobStatus::Killed;
 }
+
+void Mob::destinationReached()
+{
+    status_ = MobStatus::Destination;
+}
+
 
 }  // namespace gameplay
 }  // namespace gamestates

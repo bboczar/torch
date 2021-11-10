@@ -13,6 +13,13 @@ namespace gamestates
 namespace gameplay
 {
 
+enum class MobStatus
+{
+    Alive,
+    Killed,
+    Destination
+};
+
 class Mob : public traits::DrawingObject
 {
 public:
@@ -20,18 +27,20 @@ public:
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
-
-    sf::Vector2f position() const;
     void hit(const unsigned damage);
 
-    // TODO: introduce enum for Mob state
+    sf::Vector2f position() const;
+    MobStatus status() const;
     bool alive() const;
 
 private:
     void move(const float deltaTimeSec);
     float calcNewPosition(const float current, const float destination, const float distance);
-    void die();
 
+    void die();
+    void destinationReached();
+
+    MobStatus status_;
     unsigned heathPoints_;
     float speed_;
     sf::Vector2f position_;
