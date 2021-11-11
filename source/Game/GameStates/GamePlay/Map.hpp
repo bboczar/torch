@@ -35,6 +35,7 @@ private:
 
     sf::Texture towerTexture_;
     sf::Texture mobTexture_;
+    sf::Texture projectileTexture_;
     sf::Texture backgroundTexture_;
 
     MapConfig mapConfig_;

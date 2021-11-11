@@ -11,20 +11,10 @@ namespace gameplay
 
 Map::Map()
 {
-    if (!towerTexture_.loadFromFile("resources/tower.png"))
-    {
-        assert(false && "Missing tower texture");
-    }
-
-    if (!mobTexture_.loadFromFile("resources/spider.png"))
-    {
-        assert(false && "Missing mob texture");
-    }
-
-    if (!backgroundTexture_.loadFromFile("resources/map.png"))
-    {
-        assert(false && "Missing background texture");
-    }
+    assert(towerTexture_.loadFromFile("resources/tower.png") && "Missing tower texture");
+    assert(mobTexture_.loadFromFile("resources/spider.png") && "Missing mob texture");
+    assert(projectileTexture_.loadFromFile("resources/projectile.png") && "Missing projectile texture");
+    assert(backgroundTexture_.loadFromFile("resources/map.png") && "Missing background texture");
 
     background_.setTexture(backgroundTexture_);
 }

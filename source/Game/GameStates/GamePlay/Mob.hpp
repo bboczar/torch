@@ -35,14 +35,14 @@ public:
 
 private:
     void move(const float deltaTimeSec);
-    float calcNewPosition(const float current, const float destination, const float distance);
+    unsigned calcNewPosition(const unsigned current, const unsigned destination, const unsigned distance) const;
 
     void die();
     void destinationReached();
 
     MobStatus status_;
     unsigned heathPoints_;
-    float speed_;
+    unsigned speed_;
     sf::Vector2i position_;
     std::stack<sf::Vector2i> path_;
 

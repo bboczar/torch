@@ -50,6 +50,11 @@ void Mob::update(const float deltaTimeSec)
     }
 
     move(deltaTimeSec);
+
+    if (path_.empty())
+    {
+        destinationReached();
+    }
 }
 
 sf::Vector2i Mob::position() const
@@ -85,7 +90,7 @@ bool Mob::alive() const
 
 void Mob::move(const float deltaTimeSec)
 {
-    const float distance = speed_ * deltaTimeSec;
+    const unsigned distance = speed_ * deltaTimeSec;
     const auto destination = path_.top();
 
     if (position_.x == destination.x)
@@ -97,18 +102,17 @@ void Mob::move(const float deltaTimeSec)
         position_.x = calcNewPosition(position_.x, destination.x, distance);
     }
 
-    if (path_.empty())
+    if (position_ == path_.top())
     {
-        destinationReached();
+        path_.pop();
     }
 }
 
-float Mob::calcNewPosition(const float current, const float destination, const float distance)
+unsigned Mob::calcNewPosition(const unsigned current, const unsigned destination, const unsigned distance) const
 {
     bool closeEnoughToWaypoint = abs(destination - current) < distance;
     if (closeEnoughToWaypoint)
     {
-        path_.pop();
         return destination;
     }
 

@@ -22,7 +22,7 @@ target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics)
 
 #copy resources
 set(fonts Bebas-Regular.ttf)
-set(textures map.png spider.png tower.png)
+set(textures map.png spider.png tower.png projectile.png)
 set(configs map_config.txt)
 set(resources ${textures} ${fonts} ${configs})
 foreach(item IN LISTS resources)
