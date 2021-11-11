@@ -13,6 +13,7 @@ MainMenuState::MainMenuState(
     : window_(window)
     , menu_(mainmenu::MainMenu(font))
 {
+    music_.openFromFile("resources/main_menu.ogg");
 }
 
 std::optional<GameStateType> MainMenuState::handleEvents()
@@ -56,6 +57,16 @@ void MainMenuState::draw()
 GameStateType MainMenuState::type() const
 {
     return GameStateType::MainMenu;
+}
+
+void MainMenuState::resume()
+{
+    // music_.play();
+}
+
+void MainMenuState::pause()
+{
+    // music_.pause();
 }
 
 DesiredState MainMenuState::handleKeyPressed(const sf::Event event)

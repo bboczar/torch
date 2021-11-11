@@ -1,5 +1,7 @@
 #include <Game/Game.hpp>
 
+#include <cassert>
+
 #include <Game/GameStates/GamePlayState.hpp>
 #include <Game/GameStates/MainMenuState.hpp>
 
@@ -81,10 +83,19 @@ float Game::elapsedTime()
 void Game::dropState()
 {
     gameStates_.pop();
+    if (not gameStates_.empty())
+    {
+        gameStates_.top()->resume();
+    }
 }
 
 void Game::pushState(const GameStateType stateType)
 {
+    if (not gameStates_.empty())
+    {
+        gameStates_.top()->pause();
+    }
+
     switch (stateType)
     {
         case GameStateType::MainMenu:
@@ -93,8 +104,8 @@ void Game::pushState(const GameStateType stateType)
         case GameStateType::GamePlay:
             gameStates_.push(std::make_unique<gamestates::GamePlayState>(window_, font_));
             break;   
-        // TODO: Add other states 
         default:
+            assert(false && "Unknown game state");
             break;
     }
 }

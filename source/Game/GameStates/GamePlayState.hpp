@@ -1,5 +1,6 @@
 #pragma once
 
+#include "SFML/Audio.hpp"
 #include <SFML/Graphics.hpp>
 
 #include <Game/GameState.hpp>
@@ -18,6 +19,9 @@ public:
     void update(const float deltaTimeSec) final;
     void draw() final;
     GameStateType type() const final;
+    void resume() final;
+    void pause() final;
+
 private:
     DesiredState handleKeyReleased(const sf::Event event);
     void handleMouseButtonPressed(const sf::Event event);
@@ -26,6 +30,7 @@ private:
 
     sf::RenderWindow& window_;
     sf::Font font_;
+    sf::Music music_;
 };
 
 }  // namespace gamestates

@@ -22,6 +22,8 @@ public:
     virtual void update(const float) = 0;
     virtual void draw() = 0;
     virtual GameStateType type() const = 0;
+    virtual void resume() = 0;
+    virtual void pause() = 0;
 };
 
 }  // namespace game

@@ -13,6 +13,7 @@ GamePlayState::GamePlayState(
     : window_(window)
     , font_(font)
 {
+    music_.openFromFile("resources/gameplay.ogg");
 }
 
 std::optional<GameStateType> GamePlayState::handleEvents()
@@ -60,6 +61,16 @@ void GamePlayState::draw()
 GameStateType GamePlayState::type() const
 {
     return GameStateType::GamePlay;
+}
+
+void GamePlayState::resume()
+{
+    // music_.play();
+}
+
+void GamePlayState::pause()
+{
+    // music_.pause();
 }
 
 DesiredState GamePlayState::handleKeyReleased(const sf::Event event)
