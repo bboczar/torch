@@ -15,8 +15,6 @@ Mob::Mob(
     : status_(MobStatus::Alive)
     , heathPoints_(100)
     , speed_(150)
-    // , position_({0, 210})
-    // , path_({{0,330}, {195,330}, {195,540}, {324,540}, {324,230}, {535,230}, {535,540}, {710,540}, {710,90}, {190,90}, {190,210}})  // TODO: unhardcode
 {
     for (const auto& point : path | std::views::reverse)
     {
@@ -32,6 +30,11 @@ Mob::Mob(
 
 void Mob::draw(sf::RenderWindow& window)
 {
+    if (!alive())
+    {
+        return;
+    }
+
     unsigned x = position_.x - (sprite_.getTexture()->getSize().x / 2);
     unsigned y = position_.y - (sprite_.getTexture()->getSize().y / 2);
     sprite_.setPosition(x, y);
@@ -41,7 +44,7 @@ void Mob::draw(sf::RenderWindow& window)
 
 void Mob::update(const float deltaTimeSec)
 {
-    if (status_ != MobStatus::Alive)
+    if (!alive())
     {
         return;
     }
@@ -56,6 +59,11 @@ sf::Vector2i Mob::position() const
 
 void Mob::hit(const unsigned damage)
 {
+    if (!alive())
+    {
+        return;
+    }
+
     if (damage < heathPoints_)
     {
         heathPoints_ -= damage;
