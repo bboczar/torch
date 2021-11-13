@@ -1,4 +1,4 @@
-#include <Game/GameStates/GamePlay/Projectile.hpp>
+#include <Game/GameStates/GamePlay/Wave/Projectile.hpp>
 
 #include <cmath>
 #include <ranges>

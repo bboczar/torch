@@ -6,8 +6,8 @@
 
 #include <Game/GameStates/GamePlay/Background.hpp>
 #include <Game/GameStates/GamePlay/MapConfig.hpp>
-#include <Game/GameStates/GamePlay/Mob.hpp>
-#include <Game/GameStates/GamePlay/Projectile.hpp>
+#include <Game/GameStates/GamePlay/Wave/Mob.hpp>
+#include <Game/GameStates/GamePlay/Wave/Projectile.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 

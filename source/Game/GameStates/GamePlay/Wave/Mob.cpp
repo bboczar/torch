@@ -1,4 +1,4 @@
-#include <Game/GameStates/GamePlay/Mob.hpp>
+#include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 
 #include <ranges>
 

@@ -13,7 +13,7 @@ namespace gameplay
 
 Tower::Tower(const int x, const int y, const sf::Texture& texture,
     std::function<void(Mob&, const sf::Vector2i&)> projectileRequest)
-    : range_(350)
+    : range_(500)
     , cooldown_(sf::seconds(1.0))
     , position_({x, y})
     , projectileRequest_(projectileRequest)

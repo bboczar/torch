@@ -2,7 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <Game/GameStates/GamePlay/Mob.hpp>
+#include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 
 namespace game
