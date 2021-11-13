@@ -10,13 +10,15 @@ namespace gamestates
 namespace gameplay
 {
 
+unsigned constexpr ARBITRARY_LARGE_TAN = 100000;
+
 Projectile::Projectile(
     Mob& target,
     const sf::Vector2i& position,
     const sf::Texture& texture)
     : target_(target)
     , status_(ProjectileStatus::SeekingTarget)
-    , damage_(20)
+    , damage_(10)
     , speed_(700)
     , position_(position)
 {
@@ -84,10 +86,12 @@ void Projectile::move(const float deltaTimeSec)
     setNewPosition(distance);
 }
 
+// TODO: make this smooth
 void Projectile::setNewPosition(const unsigned distance)
 {
-    const float tanAlpha =
-        (lastKnownDestination_.y - position_.y) / (lastKnownDestination_.x - position_.x);
+    const float tanAlpha = lastKnownDestination_.x != position_.x
+        ? (lastKnownDestination_.y - position_.y) / (lastKnownDestination_.x - position_.x)
+        : ARBITRARY_LARGE_TAN;
 
     const float alpha = atan(tanAlpha);
     position_.x += abs(distance * cos(alpha)) * (lastKnownDestination_.x > position_.x ? 1 : -1);
