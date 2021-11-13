@@ -11,10 +11,12 @@ namespace gamestates
 namespace gameplay
 {
 
-Tower::Tower(const int x, const int y, const sf::Texture& texture)
+Tower::Tower(const int x, const int y, const sf::Texture& texture,
+    std::function<void(Mob&, const sf::Vector2i&)> projectileRequest)
     : range_(350)
     , cooldown_(sf::seconds(1.0))
     , position_({x, y})
+    , projectileRequest_(projectileRequest)
 {
     clock_.restart();
 
@@ -31,7 +33,7 @@ void Tower::draw(sf::RenderWindow& window)
     window.draw(sprite_);
 }
 
-void Tower::update(const float deltaTimeSec, const std::vector<Mob>& mobs)
+void Tower::update(const float deltaTimeSec, std::vector<Mob>& mobs)
 {
     if (!canFire())
     {
@@ -39,16 +41,15 @@ void Tower::update(const float deltaTimeSec, const std::vector<Mob>& mobs)
     }
 
     const auto& targetIter = std::find_if(
-        mobs.begin(), mobs.end(), [this](const auto& mob){ return inRange(mob); });
+        mobs.begin(), mobs.end(), [this](const auto& mob){ return mob.alive() and inRange(mob); });
 
     if (targetIter == mobs.end())
     {
         return;
     }
     
-    std::cout << "FIRE!" << std::endl;
     clock_.restart();
-    // fireCallback(*targetIter);
+    projectileRequest_(*targetIter, position_);
 }
 
 bool Tower::inRange(const Mob& mob) const

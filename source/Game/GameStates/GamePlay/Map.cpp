@@ -32,6 +32,11 @@ void Map::draw(sf::RenderWindow& window)
     {
         tower.draw(window);
     }
+
+    for (auto& projectile : projectiles_)
+    {
+        projectile.draw(window);
+    }
 }
 
 void Map::update(const float deltaTimeSec)
@@ -51,12 +56,23 @@ void Map::update(const float deltaTimeSec)
         tower.update(deltaTimeSec, mobs_);
     }
 
-    dropDeadMobs();
+    for (auto& projectile : projectiles_)
+    {
+        projectile.update(deltaTimeSec);
+    }
+
+    // dropDeadMobs();
 }
 
 void Map::requestTower(const int x, const int y)
 {
-   towers_.emplace_back(x, y, towerTexture_);
+    towers_.emplace_back(x, y, towerTexture_,
+        std::bind(&Map::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
+}
+
+void Map::requestProjectile(Mob& target, const sf::Vector2i& position)
+{
+    projectiles_.emplace_back(target, position, projectileTexture_);
 }
 
 void Map::dropDeadMobs()

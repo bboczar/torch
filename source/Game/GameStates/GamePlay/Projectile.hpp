@@ -32,7 +32,7 @@ public:
 
 private:
     void move(const float deltaTimeSec);
-    sf::Vector2i calcNewPosition(const unsigned current, const unsigned destination, const unsigned distance) const;
+    void setNewPosition(const unsigned distance);
     bool closeEnoughToDestination() const;
 
     void targetReached();

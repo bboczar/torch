@@ -15,10 +15,11 @@ namespace gameplay
 class Tower : public traits::DrawingObject
 {
 public:
-    Tower(const int x, const int y, const sf::Texture& texture);
+    Tower(const int x, const int y, const sf::Texture& texture,
+        std::function<void(Mob&, const sf::Vector2i&)> projectileRequest);
 
     virtual void draw(sf::RenderWindow& window) final;
-    void update(const float deltaTimeSec, const std::vector<Mob>& mobs);
+    void update(const float deltaTimeSec, std::vector<Mob>& mobs);
 
 private:
     bool inRange(const Mob& mob) const;
@@ -27,6 +28,8 @@ private:
     unsigned range_;
     sf::Time cooldown_;
     sf::Vector2i position_;
+
+    std::function<void(Mob&, const sf::Vector2i&)> projectileRequest_;
 
     sf::Clock clock_;
 

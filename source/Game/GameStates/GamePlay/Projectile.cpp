@@ -1,5 +1,6 @@
 #include <Game/GameStates/GamePlay/Projectile.hpp>
 
+#include <cmath>
 #include <ranges>
 
 namespace game
@@ -16,7 +17,7 @@ Projectile::Projectile(
     : target_(target)
     , status_(ProjectileStatus::SeekingTarget)
     , damage_(20)
-    , speed_(300)
+    , speed_(700)
     , position_(position)
 {
     sprite_.setTexture(texture);
@@ -56,10 +57,12 @@ void Projectile::update(const float deltaTimeSec)
     if (status_ == ProjectileStatus::SeekingTarget && closeEnoughToDestination())
     {
         targetReached();
+        return;
     }
     else if (status_ == ProjectileStatus::TargetDead && closeEnoughToDestination())
     {
         destinationReached();
+        return;
     }
 
     move(deltaTimeSec);
@@ -77,12 +80,18 @@ bool Projectile::alive() const
 
 void Projectile::move(const float deltaTimeSec)
 {
-    position_ = calcNewPosition(0,0,0);
+    const unsigned distance = speed_ * deltaTimeSec;
+    setNewPosition(distance);
 }
 
-sf::Vector2i Projectile::calcNewPosition(const unsigned current, const unsigned destination, const unsigned distance) const
+void Projectile::setNewPosition(const unsigned distance)
 {
-    return {};
+    const float tanAlpha =
+        (lastKnownDestination_.y - position_.y) / (lastKnownDestination_.x - position_.x);
+
+    const float alpha = atan(tanAlpha);
+    position_.x += abs(distance * cos(alpha)) * (lastKnownDestination_.x > position_.x ? 1 : -1);
+    position_.y += abs(distance * sin(alpha)) * (lastKnownDestination_.y > position_.y ? 1 : -1);
 }
 
 bool Projectile::closeEnoughToDestination() const

@@ -39,7 +39,6 @@ int Game::loop()
             }
         }
         
-        // TODO: implement delta time in update
         state->update(deltaTimeSec);
         state->draw();
 
@@ -105,7 +104,7 @@ void Game::pushState(const GameStateType stateType)
             gameStates_.push(std::make_unique<gamestates::GamePlayState>(window_, font_));
             break;   
         default:
-            assert(false && "Unknown game state");
+            assert(false and "Unknown game state");
             break;
     }
 }
