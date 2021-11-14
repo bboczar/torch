@@ -12,7 +12,7 @@ namespace wave
 {
 
 Wave::Wave(
-    const Id id,
+    const WaveId id,
     const std::vector<sf::Vector2i>& path,
     const sf::Texture& mobTexture,
     const sf::Texture& projectileTexture)
@@ -21,7 +21,7 @@ Wave::Wave(
     , mobTexture_(mobTexture)
     , projectileTexture_(projectileTexture)
 {
-    mobs_.emplace_back(id_, path_, mobTexture_);
+    mobs_.emplace_back(1, id_, path_, mobTexture_);
 }
 
 void Wave::draw(sf::RenderWindow& window)
@@ -54,7 +54,7 @@ void Wave::update(const float deltaTimeSec)
         projectile.update(deltaTimeSec);
     }
 
-    // dropDeadMobs();
+    dropRetiredProjectiles();
 }
 
 bool Wave::cleared() const
@@ -65,7 +65,8 @@ bool Wave::cleared() const
 
 void Wave::requestProjectile(Mob& target, const sf::Vector2i& position)
 {
-    projectiles_.emplace_back(target, position, projectileTexture_);
+    projectiles_.emplace_back(target.id(), position, projectileTexture_,
+        std::bind(&Wave::getMobById, this, std::placeholders::_1));
 }
 
 std::vector<Mob>& Wave::getMobs()
@@ -73,14 +74,16 @@ std::vector<Mob>& Wave::getMobs()
     return mobs_;
 }
 
+void Wave::dropRetiredProjectiles()
+{
+    std::erase_if(projectiles_, [](const Projectile& p){ return !p.alive(); });
+}
 
-// void Wave::dropDeadMobs()
-// {
-//     mobs_.erase(
-//         std::remove_if(mobs_.begin(), mobs_.end(), [](const Mob& m){ return !m.alive(); }),
-//         mobs_.end()
-//     );
-// }
+// TODO: should not be unsafe but make itr optional
+Mob& Wave::getMobById(const MobId mobId)
+{
+    return *std::ranges::find_if(mobs_, [mobId](const Mob& m){ return m.id() == mobId; });
+}
 
 }  // namespace wave
 }  // namespace gameplay

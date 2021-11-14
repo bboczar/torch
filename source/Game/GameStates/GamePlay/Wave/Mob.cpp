@@ -12,10 +12,12 @@ namespace wave
 {
 
 Mob::Mob(
+    const MobId id,
     const WaveId waveId,
     const std::vector<sf::Vector2i>& path,
     const sf::Texture& texture)
-    : waveId_(waveId)
+    : id_(id)
+    , waveId_(waveId)
     , status_(MobStatus::Alive)
     , heathPoints_(100)
     , speed_(150)
@@ -80,6 +82,11 @@ void Mob::hit(const unsigned damage)
     }
 
     die();
+}
+
+MobId Mob::id() const
+{
+    return id_;
 }
 
 WaveId Mob::waveId() const

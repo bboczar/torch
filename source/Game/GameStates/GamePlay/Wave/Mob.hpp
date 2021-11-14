@@ -15,6 +15,7 @@ namespace gameplay
 namespace wave
 {
 
+using MobId = unsigned;
 using WaveId = unsigned;
 
 enum class MobStatus
@@ -27,12 +28,17 @@ enum class MobStatus
 class Mob : public traits::DrawingObject
 {
 public:
-    Mob(const WaveId waveId, const std::vector<sf::Vector2i>& path, const sf::Texture& texture);
+    Mob(
+        const MobId id,
+        const WaveId waveId,
+        const std::vector<sf::Vector2i>& path,
+        const sf::Texture& texture);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
     void hit(const unsigned damage);
 
+    MobId id() const;
     WaveId waveId() const;
     sf::Vector2i position() const;
     MobStatus status() const;
@@ -45,6 +51,7 @@ private:
     void die();
     void destinationReached();
 
+    MobId id_;
     WaveId waveId_;
     MobStatus status_;
     unsigned heathPoints_;

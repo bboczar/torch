@@ -18,13 +18,13 @@ namespace gameplay
 namespace wave
 {
 
-using Id = unsigned;
+using WaveId = unsigned;
 
 class Wave : public traits::DrawingObject
 {
 public:
     Wave(
-        const Id id,
+        const WaveId id,
         const std::vector<sf::Vector2i>& path,
         const sf::Texture& mobTexture,
         const sf::Texture& projectileTexture);
@@ -37,10 +37,13 @@ public:
     std::vector<Mob>& getMobs();
 
 private:
+    void dropRetiredProjectiles();
+    Mob& getMobById(const MobId mobId);
+
     std::vector<Mob> mobs_;
     std::vector<Projectile> projectiles_;
 
-    const Id id_;
+    const WaveId id_;
     const std::vector<sf::Vector2i> path_;
 
     const sf::Texture& mobTexture_;

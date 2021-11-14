@@ -13,14 +13,16 @@ namespace wave
 {
 
 Projectile::Projectile(
-    Mob& target,
+    const MobId targetId,
     const sf::Vector2i& position,
-    const sf::Texture& texture)
-    : target_(target)
+    const sf::Texture& texture,
+    std::function<Mob&(const MobId)> getTarget)
+    : targetId_(targetId)
     , status_(ProjectileStatus::SeekingTarget)
     , damage_(10)
     , speed_(700)
     , position_(position)
+    , getTarget_(getTarget)
 {
     sprite_.setTexture(texture);
     sprite_.setPosition(position_.x, position_.y);
@@ -47,9 +49,10 @@ void Projectile::update(const float deltaTimeSec)
         return;
     }
 
-    if (target_.alive())
+    Mob& target = getTarget_(targetId_);
+    if (target.alive())
     {
-        lastKnownDestination_ = target_.position();
+        lastKnownDestination_ = target.position();
     }
     else
     {
@@ -58,7 +61,7 @@ void Projectile::update(const float deltaTimeSec)
 
     if (status_ == ProjectileStatus::SeekingTarget && closeEnoughToDestination())
     {
-        targetReached();
+        targetReached(target);
         return;
     }
     else if (status_ == ProjectileStatus::TargetDead && closeEnoughToDestination())
@@ -114,9 +117,9 @@ bool Projectile::closeEnoughToDestination() const
         && abs(lastKnownDestination_.y - position_.y) < 20;
 }
 
-void Projectile::targetReached()
+void Projectile::targetReached(Mob& target)
 {
-    target_.hit(damage_);
+    target.hit(damage_);
     status_ = ProjectileStatus::Retired;
 }
 

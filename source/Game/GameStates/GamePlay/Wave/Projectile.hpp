@@ -24,7 +24,11 @@ enum class ProjectileStatus
 class Projectile : public traits::DrawingObject
 {
 public:
-    Projectile(Mob& target, const sf::Vector2i& position, const sf::Texture& texture);
+    Projectile(
+        const MobId targetId,
+        const sf::Vector2i& position,
+        const sf::Texture& texture,
+        std::function<Mob&(const MobId)> getTarget);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
@@ -37,16 +41,18 @@ private:
     void setNewPosition(const unsigned distance);
     bool closeEnoughToDestination() const;
 
-    void targetReached();
+    void targetReached(Mob& target);
     void destinationReached();
 
-    Mob& target_;
+    MobId targetId_;
     sf::Vector2i lastKnownDestination_;
 
     ProjectileStatus status_;
     unsigned damage_;
     unsigned speed_;
     sf::Vector2i position_;
+
+    std::function<Mob&(const MobId)> getTarget_;
 
     sf::Sprite sprite_;
 };

@@ -31,7 +31,7 @@ private:
     void requestProjectile(wave::Mob& target, const sf::Vector2i& position);
     void handleClearedWaves();
 
-    std::unordered_map<wave::Id, wave::Wave> waves_;
+    std::unordered_map<wave::WaveId, wave::Wave> waves_;
     std::vector<Tower> towers_;
     Backgorund background_;
 
