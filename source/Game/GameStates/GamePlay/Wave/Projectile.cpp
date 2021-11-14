@@ -9,6 +9,8 @@ namespace gamestates
 {
 namespace gameplay
 {
+namespace wave
+{
 
 Projectile::Projectile(
     Mob& target,
@@ -123,6 +125,7 @@ void Projectile::destinationReached()
     status_ = ProjectileStatus::Retired;
 }
 
+}  // namespace wave
 }  // namespace gameplay
 }  // namespace gamestates
 }  // namespace game

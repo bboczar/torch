@@ -16,20 +16,20 @@ class Tower : public traits::DrawingObject
 {
 public:
     Tower(const int x, const int y, const sf::Texture& texture,
-        std::function<void(Mob&, const sf::Vector2i&)> projectileRequest);
+        std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest);
 
     virtual void draw(sf::RenderWindow& window) final;
-    void update(const float deltaTimeSec, std::vector<Mob>& mobs);
+    void update(const float deltaTimeSec, std::vector<wave::Mob>& mobs);
 
 private:
-    bool inRange(const Mob& mob) const;
+    bool inRange(const wave::Mob& mob) const;
     bool canFire() const;
 
     unsigned range_;
     sf::Time cooldown_;
     sf::Vector2i position_;
 
-    std::function<void(Mob&, const sf::Vector2i&)> projectileRequest_;
+    std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest_;
 
     sf::Clock clock_;
 

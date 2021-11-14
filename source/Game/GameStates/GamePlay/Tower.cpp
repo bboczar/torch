@@ -1,7 +1,5 @@
 #include <Game/GameStates/GamePlay/Tower.hpp>
 
-#include <iostream>
-
 #include <cmath>
 
 namespace game
@@ -12,7 +10,7 @@ namespace gameplay
 {
 
 Tower::Tower(const int x, const int y, const sf::Texture& texture,
-    std::function<void(Mob&, const sf::Vector2i&)> projectileRequest)
+    std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest)
     : range_(500)
     , cooldown_(sf::seconds(1.0))
     , position_({x, y})
@@ -33,7 +31,7 @@ void Tower::draw(sf::RenderWindow& window)
     window.draw(sprite_);
 }
 
-void Tower::update(const float deltaTimeSec, std::vector<Mob>& mobs)
+void Tower::update(const float deltaTimeSec, std::vector<wave::Mob>& mobs)
 {
     if (!canFire())
     {
@@ -52,7 +50,7 @@ void Tower::update(const float deltaTimeSec, std::vector<Mob>& mobs)
     projectileRequest_(*targetIter, position_);
 }
 
-bool Tower::inRange(const Mob& mob) const
+bool Tower::inRange(const wave::Mob& mob) const
 {
     const auto& mobPosition = mob.position();
     const auto& distance = sqrt(

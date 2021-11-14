@@ -8,11 +8,15 @@ namespace gamestates
 {
 namespace gameplay
 {
+namespace wave
+{
 
 Mob::Mob(
+    const WaveId waveId,
     const std::vector<sf::Vector2i>& path,
     const sf::Texture& texture)
-    : status_(MobStatus::Alive)
+    : waveId_(waveId)
+    , status_(MobStatus::Alive)
     , heathPoints_(100)
     , speed_(150)
 {
@@ -78,6 +82,11 @@ void Mob::hit(const unsigned damage)
     die();
 }
 
+WaveId Mob::waveId() const
+{
+    return waveId_;
+}
+
 MobStatus Mob::status() const
 {
     return status_;
@@ -131,6 +140,7 @@ void Mob::destinationReached()
     status_ = MobStatus::Destination;
 }
 
+}  // namespace wave
 }  // namespace gameplay
 }  // namespace gamestates
 }  // namespace game

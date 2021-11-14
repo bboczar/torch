@@ -1,14 +1,14 @@
 #pragma once
 
+#include <unordered_map>
 #include <vector>
 
 #include <SFML/Graphics.hpp>
 
 #include <Game/GameStates/GamePlay/Background.hpp>
 #include <Game/GameStates/GamePlay/MapConfig.hpp>
-#include <Game/GameStates/GamePlay/Wave/Mob.hpp>
-#include <Game/GameStates/GamePlay/Wave/Projectile.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
+#include <Game/GameStates/GamePlay/Wave/Wave.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 
 namespace game
@@ -28,12 +28,11 @@ public:
     void requestTower(const int x, const int y);
 
 private:
-    void requestProjectile(Mob& target, const sf::Vector2i& position);
-    void dropDeadMobs();
+    void requestProjectile(wave::Mob& target, const sf::Vector2i& position);
+    void handleClearedWaves();
 
-    std::vector<Mob> mobs_;
+    std::unordered_map<wave::Id, wave::Wave> waves_;
     std::vector<Tower> towers_;
-    std::vector<Projectile> projectiles_;
     Backgorund background_;
 
     sf::Texture towerTexture_;

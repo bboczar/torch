@@ -11,6 +11,8 @@ namespace gamestates
 {
 namespace gameplay
 {
+namespace wave
+{
 
 enum class ProjectileStatus
 {
@@ -49,6 +51,7 @@ private:
     sf::Sprite sprite_;
 };
 
+}  // namespace wave
 }  // namespace gameplay
 }  // namespace gamestates
 }  // namespace game

@@ -23,45 +23,38 @@ void Map::draw(sf::RenderWindow& window)
 {
     background_.draw(window);
 
-    for (auto& mob : mobs_)
+    for (auto& [id, wave] : waves_)
     {
-        mob.draw(window);
+        wave.draw(window);
     }
 
     for (auto& tower : towers_)
     {
         tower.draw(window);
     }
-
-    for (auto& projectile : projectiles_)
-    {
-        projectile.draw(window);
-    }
 }
 
 void Map::update(const float deltaTimeSec)
 {
-    if (mobs_.empty())  // TODO: remove, temporary for testing
+    if (waves_.empty())
     {
-        mobs_.emplace_back(mapConfig_.getPath(), mobTexture_);
+        waves_.emplace(1, wave::Wave(1, mapConfig_.getPath(), mobTexture_, projectileTexture_));
     }
 
-    for (auto& mob : mobs_)
+    for (auto& [Id, wave] : waves_)
     {
-        mob.update(deltaTimeSec);
+        wave.update(deltaTimeSec);
     }
 
     for (auto& tower : towers_)
     {
-        tower.update(deltaTimeSec, mobs_);
+        for (auto& [Id, wave] : waves_)
+        {
+            tower.update(deltaTimeSec, wave.getMobs());
+        }
     }
 
-    for (auto& projectile : projectiles_)
-    {
-        projectile.update(deltaTimeSec);
-    }
-
-    // dropDeadMobs();
+    handleClearedWaves();
 }
 
 void Map::requestTower(const int x, const int y)
@@ -70,17 +63,18 @@ void Map::requestTower(const int x, const int y)
         std::bind(&Map::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
 }
 
-void Map::requestProjectile(Mob& target, const sf::Vector2i& position)
+void Map::requestProjectile(wave::Mob& target, const sf::Vector2i& position)
 {
-    projectiles_.emplace_back(target, position, projectileTexture_);
+    const auto& waveIt = waves_.find(target.waveId());
+    if (waveIt != waves_.end())
+    {
+        waveIt->second.requestProjectile(target, position);
+    }
 }
 
-void Map::dropDeadMobs()
+void Map::handleClearedWaves()
 {
-    mobs_.erase(
-        std::remove_if(mobs_.begin(), mobs_.end(), [](const Mob& m){ return !m.alive(); }),
-        mobs_.end()
-    );
+    std::erase_if(waves_, [](const auto& el){ return el.second.cleared(); });
 }
 
 }  // namespace gameplay
