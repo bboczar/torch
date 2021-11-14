@@ -10,8 +10,6 @@ namespace gamestates
 namespace gameplay
 {
 
-unsigned constexpr ARBITRARY_LARGE_TAN = 100000;
-
 Projectile::Projectile(
     Mob& target,
     const sf::Vector2i& position,
@@ -47,13 +45,13 @@ void Projectile::update(const float deltaTimeSec)
         return;
     }
 
-    if (status_ == ProjectileStatus::SeekingTarget && !target_.alive())
+    if (target_.alive())
     {
-        status_ = ProjectileStatus::TargetDead;
+        lastKnownDestination_ = target_.position();
     }
     else
     {
-        lastKnownDestination_ = target_.position();
+        status_ = ProjectileStatus::TargetDead;
     }
 
     if (status_ == ProjectileStatus::SeekingTarget && closeEnoughToDestination())
@@ -86,22 +84,32 @@ void Projectile::move(const float deltaTimeSec)
     setNewPosition(distance);
 }
 
-// TODO: make this smooth
 void Projectile::setNewPosition(const unsigned distance)
 {
-    const float tanAlpha = lastKnownDestination_.x != position_.x
-        ? (lastKnownDestination_.y - position_.y) / (lastKnownDestination_.x - position_.x)
-        : ARBITRARY_LARGE_TAN;
+    if (lastKnownDestination_.x == position_.x)
+    {
+        position_.y += distance * (lastKnownDestination_.y > position_.y ? 1 : -1);
+        return;
+    }
 
+    if (lastKnownDestination_.y == position_.y)
+    {
+        position_.x += distance * (lastKnownDestination_.x > position_.x ? 1 : -1);
+        return;
+    }
+
+    const float tanAlpha =
+        float(lastKnownDestination_.y - position_.y) / float(lastKnownDestination_.x - position_.x);
     const float alpha = atan(tanAlpha);
+
     position_.x += abs(distance * cos(alpha)) * (lastKnownDestination_.x > position_.x ? 1 : -1);
     position_.y += abs(distance * sin(alpha)) * (lastKnownDestination_.y > position_.y ? 1 : -1);
 }
 
 bool Projectile::closeEnoughToDestination() const
 {
-    return abs(lastKnownDestination_.x - position_.x) < 10
-        && abs(lastKnownDestination_.y - position_.y) < 10;
+    return abs(lastKnownDestination_.x - position_.x) < 20
+        && abs(lastKnownDestination_.y - position_.y) < 20;
 }
 
 void Projectile::targetReached()
