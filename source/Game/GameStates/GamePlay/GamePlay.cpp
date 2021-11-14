@@ -23,7 +23,7 @@ void GamePlay::update(const float deltaTimeSec)
 
 void GamePlay::requestTower(const int x, const int y)
 {
-    map_.requestTower(x, y);
+    map_.requestTower({x, y});
 }
 
 }  // namespace gameplay

@@ -15,7 +15,7 @@ namespace gameplay
 class Tower : public traits::DrawingObject
 {
 public:
-    Tower(const int x, const int y, const sf::Texture& texture,
+    Tower(const sf::Vector2i& position, const sf::Texture& texture,
         std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest);
 
     virtual void draw(sf::RenderWindow& window) final;

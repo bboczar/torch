@@ -25,7 +25,7 @@ public:
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
-    void requestTower(const int x, const int y);
+    void requestTower(const sf::Vector2i& position);
 
 private:
     void requestProjectile(wave::Mob& target, const sf::Vector2i& position);

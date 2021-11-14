@@ -57,9 +57,9 @@ void Map::update(const float deltaTimeSec)
     handleClearedWaves();
 }
 
-void Map::requestTower(const int x, const int y)
+void Map::requestTower(const sf::Vector2i& position)
 {
-    towers_.emplace_back(x, y, towerTexture_,
+    towers_.emplace_back(position, towerTexture_,
         std::bind(&Map::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
 }
 

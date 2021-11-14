@@ -9,17 +9,17 @@ namespace gamestates
 namespace gameplay
 {
 
-Tower::Tower(const int x, const int y, const sf::Texture& texture,
+Tower::Tower(const sf::Vector2i& position, const sf::Texture& texture,
     std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest)
     : range_(500)
     , cooldown_(sf::seconds(1.0))
-    , position_({x, y})
+    , position_(position)
     , projectileRequest_(projectileRequest)
 {
     clock_.restart();
 
     sprite_.setTexture(texture);
-    sprite_.setPosition(float(x), float(y));
+    sprite_.setPosition(position_.x, position_.y);
 }
 
 void Tower::draw(sf::RenderWindow& window)
