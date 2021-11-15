@@ -29,12 +29,11 @@ private:
 
     unsigned range_;
     sf::Time cooldown_;
-    sf::Vector2i position_;
+    const sf::Vector2i position_;
 
     std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest_;
 
     sf::Clock clock_;
-
     sf::Sprite sprite_;
 };
 

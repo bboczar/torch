@@ -51,8 +51,9 @@ private:
     void die();
     void destinationReached();
 
-    MobId id_;
-    WaveId waveId_;
+    const MobId id_;
+    const WaveId waveId_;
+
     MobStatus status_;
     unsigned heathPoints_;
     unsigned speed_;
