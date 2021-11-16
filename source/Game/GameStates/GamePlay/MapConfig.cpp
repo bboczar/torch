@@ -17,6 +17,13 @@ std::vector<sf::Vector2i> MapConfig::getPath()
         return path_;
     }
 
+    readFromFile();
+
+    return path_;
+}
+
+void MapConfig::readFromFile()
+{
     std::ifstream mapConfig;
 
     mapConfig.open("resources/map_config.txt");
@@ -29,9 +36,9 @@ std::vector<sf::Vector2i> MapConfig::getPath()
 
     mapConfig.close();
 
-    assert(!path_.empty() && "No valid points in the map's path");
+    assert(!path_.empty() && "No valid points in the map's path"); 
 
-    return path_;
+    std::reverse(path_.begin() ,path_.end());
 }
 
 }  // namespace gameplay

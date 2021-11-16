@@ -9,6 +9,7 @@
 #include <Game/GameStates/GamePlay/MapConfig.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
 #include <Game/GameStates/GamePlay/Wave/Wave.hpp>
+#include <Game/GameStates/GamePlay/Wave/WaveConfig.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 
 namespace game
@@ -41,6 +42,7 @@ private:
     sf::Texture backgroundTexture_;
 
     MapConfig mapConfig_;
+    wave::WaveConfig waveConfig_;
 };
 
 }  // namespace gameplay

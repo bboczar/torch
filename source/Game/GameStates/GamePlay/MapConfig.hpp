@@ -17,6 +17,8 @@ public:
     std::vector<sf::Vector2i> getPath();
 
 private:
+    void readFromFile();
+
     std::vector<sf::Vector2i> path_;
 };
 

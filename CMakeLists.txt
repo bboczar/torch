@@ -24,7 +24,7 @@ target_link_libraries(${PROJECT_NAME} sfml-system sfml-window sfml-graphics sfml
 set(fonts Bebas-Regular.ttf)
 set(textures map.png spider.png tower.png projectile.png)
 set(music main_menu.ogg gameplay.ogg)
-set(configs map_config.txt)
+set(configs map_config.txt wave_config.txt)
 set(resources ${textures} ${fonts} ${configs} ${music})
 foreach(item IN LISTS resources)
     add_custom_command(

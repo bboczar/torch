@@ -1,7 +1,5 @@
 #include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 
-#include <ranges>
-
 namespace game
 {
 namespace gamestates
@@ -22,7 +20,7 @@ Mob::Mob(
     , heathPoints_(100)
     , speed_(150)
 {
-    for (const auto& point : path | std::views::reverse)
+    for (const auto& point : path)
     {
         path_.push(point);
     }
