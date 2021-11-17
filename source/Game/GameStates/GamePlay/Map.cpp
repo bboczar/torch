@@ -10,6 +10,8 @@ namespace gameplay
 {
 
 Map::Map()
+    : waveCooldown_(sf::seconds(10))
+    , waveIdCounter_(0)
 {
     assert(towerTexture_.loadFromFile("resources/tower.png") && "Missing tower texture");
     assert(mobTexture_.loadFromFile("resources/spider.png") && "Missing mob texture");
@@ -17,6 +19,7 @@ Map::Map()
     assert(backgroundTexture_.loadFromFile("resources/map.png") && "Missing background texture");
 
     background_.setTexture(backgroundTexture_);
+    clock_.restart();
 }
 
 void Map::draw(sf::RenderWindow& window)
@@ -36,11 +39,6 @@ void Map::draw(sf::RenderWindow& window)
 
 void Map::update(const float deltaTimeSec)
 {
-    if (waves_.empty())
-    {
-        waves_.emplace(1, wave::Wave(1, mapConfig_.getPath(), mobTexture_, projectileTexture_));
-    }
-
     for (auto& [Id, wave] : waves_)
     {
         wave.update(deltaTimeSec);
@@ -54,6 +52,7 @@ void Map::update(const float deltaTimeSec)
         }
     }
 
+    spawnWave();
     handleClearedWaves();
 }
 
@@ -70,6 +69,22 @@ void Map::requestProjectile(wave::Mob& target, const sf::Vector2i& position)
     {
         waveIt->second.requestProjectile(target, position);
     }
+}
+
+void Map::spawnWave()
+{
+    if (timeToSpawnWave())
+    {
+        waves_.emplace(waveIdCounter_, wave::Wave(waveIdCounter_, mapConfig_.getPath(), mobTexture_, projectileTexture_));
+        waveIdCounter_++;
+        clock_.restart();
+    }
+}
+
+bool Map::timeToSpawnWave() const
+{
+    const auto& elapsedTimeSec = clock_.getElapsedTime();
+    return elapsedTimeSec >= waveCooldown_;
 }
 
 void Map::handleClearedWaves()

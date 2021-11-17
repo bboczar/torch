@@ -30,6 +30,8 @@ public:
 
 private:
     void requestProjectile(wave::Mob& target, const sf::Vector2i& position);
+    void spawnWave();
+    bool timeToSpawnWave() const;
     void handleClearedWaves();
 
     std::unordered_map<wave::WaveId, wave::Wave> waves_;
@@ -40,6 +42,10 @@ private:
     sf::Texture mobTexture_;
     sf::Texture projectileTexture_;
     sf::Texture backgroundTexture_;
+
+    sf::Time waveCooldown_;
+    sf::Clock clock_;
+    wave::WaveId waveIdCounter_;
 
     MapConfig mapConfig_;
     wave::WaveConfig waveConfig_;

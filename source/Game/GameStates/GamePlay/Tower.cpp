@@ -13,7 +13,7 @@ Tower::Tower(
     const sf::Vector2i& position,
     const sf::Texture& texture,
     std::function<void(wave::Mob&, const sf::Vector2i&)> projectileRequest)
-    : range_(500)
+    : range_(200)
     , cooldown_(sf::seconds(1.0))
     , position_(position)
     , projectileRequest_(projectileRequest)
