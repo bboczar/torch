@@ -44,7 +44,7 @@ private:
     sf::Texture backgroundTexture_;
 
     sf::Time waveCooldown_;
-    sf::Clock clock_;
+    sf::Clock waveSpawnClock_;
     wave::WaveId waveIdCounter_;
 
     MapConfig mapConfig_;

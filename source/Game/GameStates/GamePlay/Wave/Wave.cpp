@@ -1,6 +1,7 @@
 #include <Game/GameStates/GamePlay/Wave/Wave.hpp>
 
 #include <cassert>
+#include <iostream>
 
 namespace game
 {
@@ -14,14 +15,20 @@ namespace wave
 Wave::Wave(
     const WaveId id,
     const std::vector<sf::Vector2i>& path,
+    const unsigned mobCount,
     const sf::Texture& mobTexture,
     const sf::Texture& projectileTexture)
     : id_(id)
     , path_(path)
+    , mobSpawnCooldown_(sf::seconds(1))
+    , mobIdCounter_(0)
+    , spawnedMobsCount_(0)
+    , mobCount_(mobCount)
     , mobTexture_(mobTexture)
     , projectileTexture_(projectileTexture)
 {
-    mobs_.emplace_back(1, id_, path_, mobTexture_);
+    std::cout << "Spawning wave with " << mobCount_ << " mobs" <<  std::endl; 
+    mobSpawnClock_.restart();
 }
 
 void Wave::draw(sf::RenderWindow& window)
@@ -44,6 +51,12 @@ void Wave::update(const float deltaTimeSec)
         return;
     }
 
+    if (not fullySpawned() && timeToSpawnMob())
+    {
+        std::cout << "Spawn mob" << std::endl; 
+        spawnMob();
+    }
+
     for (auto& mob : mobs_)
     {
         mob.update(deltaTimeSec);
@@ -59,7 +72,8 @@ void Wave::update(const float deltaTimeSec)
 
 bool Wave::cleared() const
 {
-    return std::none_of(mobs_.begin(), mobs_.end(), [](const Mob& m){ return m.alive(); })
+    return fullySpawned()
+        and std::none_of(mobs_.begin(), mobs_.end(), [](const Mob& m){ return m.alive(); })
         and std::none_of(projectiles_.begin(), projectiles_.end(), [](const Projectile& p){ return p.alive(); });
 }
 
@@ -72,6 +86,25 @@ void Wave::requestProjectile(Mob& target, const sf::Vector2i& position)
 std::vector<Mob>& Wave::getMobs()
 {
     return mobs_;
+}
+
+void Wave::spawnMob()
+{
+    mobs_.emplace_back(mobIdCounter_, id_, path_, mobTexture_);
+    mobIdCounter_++;
+    spawnedMobsCount_++;
+    mobSpawnClock_.restart();
+}
+
+bool Wave::timeToSpawnMob() const
+{
+    const auto& elapsedTimeSec = mobSpawnClock_.getElapsedTime();
+    return elapsedTimeSec >= mobSpawnCooldown_;
+}
+
+bool Wave::fullySpawned() const
+{
+    return spawnedMobsCount_ >= mobCount_;
 }
 
 void Wave::dropRetiredProjectiles()

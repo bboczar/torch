@@ -12,18 +12,21 @@ namespace gameplay
 namespace wave
 {
 
+WaveConfig::WaveConfig()
+{
+    readFromFile();
+}
+
 WaveData WaveConfig::getNextWaveData()
 {
-    if (!initialised_)
-    {
-        readFromFile();
-    }
-
-    readFromFile();
-
     const auto waveData = waveDatas_.front();
     waveDatas_.pop();
     return waveData;
+}
+
+bool WaveConfig::empty() const
+{
+    return waveDatas_.empty();
 }
 
 void WaveConfig::readFromFile()

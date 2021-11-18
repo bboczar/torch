@@ -23,7 +23,9 @@ struct WaveData
 class WaveConfig
 {
 public:
+    WaveConfig();
     WaveData getNextWaveData();
+    bool empty() const;
 
 private:
     void readFromFile();

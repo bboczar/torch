@@ -26,6 +26,7 @@ public:
     Wave(
         const WaveId id,
         const std::vector<sf::Vector2i>& path,
+        const unsigned mobCount,
         const sf::Texture& mobTexture,
         const sf::Texture& projectileTexture);
 
@@ -37,6 +38,9 @@ public:
     std::vector<Mob>& getMobs();
 
 private:
+    void spawnMob();
+    bool timeToSpawnMob() const;
+    bool fullySpawned() const;
     void dropRetiredProjectiles();
     Mob& getMobById(const MobId mobId);
 
@@ -45,6 +49,12 @@ private:
 
     const WaveId id_;
     const std::vector<sf::Vector2i> path_;
+
+    sf::Clock mobSpawnClock_;
+    sf::Time mobSpawnCooldown_;
+    MobId mobIdCounter_;
+    unsigned spawnedMobsCount_;
+    unsigned mobCount_;
 
     const sf::Texture& mobTexture_;
     const sf::Texture& projectileTexture_;
