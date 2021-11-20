@@ -22,7 +22,7 @@ namespace gameplay
 class Map : public traits::DrawingObject
 {
 public:
-    Map();
+    Map(const sf::Font font);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
@@ -32,6 +32,7 @@ private:
     void requestProjectile(wave::Mob& target, const sf::Vector2i& position);
     void spawnWave();
     bool timeToSpawnWave() const;
+    void updateWaveCountdownText();
     void handleClearedWaves();
 
     std::unordered_map<wave::WaveId, wave::Wave> waves_;
@@ -42,6 +43,9 @@ private:
     sf::Texture mobTexture_;
     sf::Texture projectileTexture_;
     sf::Texture backgroundTexture_;
+
+    sf::Font font_;
+    sf::Text spawnCountdownText_;
 
     sf::Time waveCooldown_;
     sf::Clock waveSpawnClock_;

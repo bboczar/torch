@@ -10,7 +10,8 @@ namespace gamestates
 GamePlayState::GamePlayState(
     sf::RenderWindow& window,
     sf::Font font)
-    : window_(window)
+    : gamePlay_(font)
+    , window_(window)
     , font_(font)
 {
     music_.openFromFile("resources/gameplay.ogg");

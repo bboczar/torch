@@ -7,7 +7,9 @@ namespace gamestates
 namespace gameplay
 {
 
-GamePlay::GamePlay()
+GamePlay::GamePlay(
+    const sf::Font font)
+    : map_(font)
 {
 }
 

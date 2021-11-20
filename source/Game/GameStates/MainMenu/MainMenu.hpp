@@ -12,7 +12,7 @@ namespace mainmenu
 class MainMenu : public traits::DrawingObject
 {
 public:
-    MainMenu(sf::Font font);
+    MainMenu(const sf::Font font);
 
     virtual void draw(sf::RenderWindow& window) final;
 

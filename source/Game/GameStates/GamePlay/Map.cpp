@@ -9,14 +9,18 @@ namespace gamestates
 namespace gameplay
 {
 
-Map::Map()
-    : waveCooldown_(sf::seconds(20))
+Map::Map(const sf::Font font)
+    : font_(font)
+    , waveCooldown_(sf::seconds(20))
     , waveIdCounter_(0)
 {
     assert(towerTexture_.loadFromFile("resources/tower.png") && "Missing tower texture");
     assert(mobTexture_.loadFromFile("resources/spider.png") && "Missing mob texture");
     assert(projectileTexture_.loadFromFile("resources/projectile.png") && "Missing projectile texture");
     assert(backgroundTexture_.loadFromFile("resources/map.png") && "Missing background texture");
+
+    spawnCountdownText_.setFont(font_);
+    spawnCountdownText_.setCharacterSize(16);
 
     background_.setTexture(backgroundTexture_);
     waveSpawnClock_.restart();
@@ -35,6 +39,9 @@ void Map::draw(sf::RenderWindow& window)
     {
         tower.draw(window);
     }
+
+    spawnCountdownText_.setPosition(window.getSize().x - 90,  0);
+    window.draw(spawnCountdownText_);
 }
 
 void Map::update(const float deltaTimeSec)
@@ -57,6 +64,7 @@ void Map::update(const float deltaTimeSec)
         }
     }
 
+    updateWaveCountdownText();
     handleClearedWaves();
 }
 
@@ -87,6 +95,12 @@ bool Map::timeToSpawnWave() const
 {
     const auto& elapsedTimeSec = waveSpawnClock_.getElapsedTime();
     return elapsedTimeSec >= waveCooldown_;
+}
+
+void Map::updateWaveCountdownText()
+{
+    const unsigned counter = (waveCooldown_ - waveSpawnClock_.getElapsedTime()).asSeconds();
+    spawnCountdownText_.setString(std::string("Next wave: ") + std::to_string(counter));   
 }
 
 void Map::handleClearedWaves()

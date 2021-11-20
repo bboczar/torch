@@ -15,7 +15,7 @@ namespace gameplay
 class GamePlay : public traits::DrawingObject
 {
 public:
-    GamePlay();
+    GamePlay(const sf::Font font);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);

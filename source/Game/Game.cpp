@@ -64,8 +64,8 @@ void Game::setupResources()
 
 void Game::updateFps(const float deltaTimeSec)
 {
-    const float fps =  1/(deltaTimeSec);
-    fpsText_.setString(std::to_string(fps));   
+    const unsigned fps =  1/(deltaTimeSec);
+    fpsText_.setString(std::string("FPS: ") + std::to_string(fps));   
 }
 
 void Game::draw()

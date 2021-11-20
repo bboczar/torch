@@ -7,7 +7,7 @@ namespace gamestates
 namespace mainmenu
 {
 
-MainMenu::MainMenu(sf::Font font)
+MainMenu::MainMenu(const sf::Font font)
     : font_(font)
 {
     menuElements_[MenuElement_Start].setFont(font_);
