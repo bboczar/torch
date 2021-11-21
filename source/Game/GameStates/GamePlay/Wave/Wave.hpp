@@ -7,6 +7,7 @@
 #include <Game/GameStates/GamePlay/MapConfig.hpp>
 #include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 #include <Game/GameStates/GamePlay/Wave/Projectile.hpp>
+#include <Game/GameStates/GamePlay/Wave/WaveConfig.hpp>
 #include <Game/Traits/DrawingObject.hpp>
 
 namespace game
@@ -26,7 +27,7 @@ public:
     Wave(
         const WaveId id,
         const std::vector<sf::Vector2i>& path,
-        const unsigned mobCount,
+        const WaveData data,
         const sf::Texture& mobTexture,
         const sf::Texture& projectileTexture);
 
@@ -49,12 +50,12 @@ private:
 
     const WaveId id_;
     const std::vector<sf::Vector2i> path_;
+    const WaveData data_;
 
     sf::Clock mobSpawnClock_;
     sf::Time mobSpawnCooldown_;
     MobId mobIdCounter_;
     unsigned spawnedMobsCount_;
-    unsigned mobCount_;
 
     const sf::Texture& mobTexture_;
     const sf::Texture& projectileTexture_;

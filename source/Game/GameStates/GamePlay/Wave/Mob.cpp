@@ -12,13 +12,15 @@ namespace wave
 Mob::Mob(
     const MobId id,
     const WaveId waveId,
+    const unsigned hp,
+    const unsigned speed,
     const std::vector<sf::Vector2i>& path,
     const sf::Texture& texture)
     : id_(id)
     , waveId_(waveId)
     , status_(MobStatus::Alive)
-    , heathPoints_(100)
-    , speed_(150)
+    , heathPoints_(hp)
+    , speed_(speed)
 {
     for (const auto& point : path)
     {

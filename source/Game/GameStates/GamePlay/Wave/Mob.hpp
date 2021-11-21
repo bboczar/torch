@@ -31,6 +31,8 @@ public:
     Mob(
         const MobId id,
         const WaveId waveId,
+        const unsigned hp,
+        const unsigned speed,
         const std::vector<sf::Vector2i>& path,
         const sf::Texture& texture);
 

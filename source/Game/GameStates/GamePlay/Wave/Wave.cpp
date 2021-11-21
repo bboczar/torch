@@ -15,19 +15,19 @@ namespace wave
 Wave::Wave(
     const WaveId id,
     const std::vector<sf::Vector2i>& path,
-    const unsigned mobCount,
+    const WaveData data,
     const sf::Texture& mobTexture,
     const sf::Texture& projectileTexture)
     : id_(id)
     , path_(path)
+    , data_(data)
     , mobSpawnCooldown_(sf::seconds(1))
     , mobIdCounter_(0)
     , spawnedMobsCount_(0)
-    , mobCount_(mobCount)
     , mobTexture_(mobTexture)
     , projectileTexture_(projectileTexture)
 {
-    std::cout << "Spawning wave with " << mobCount_ << " mobs" <<  std::endl; 
+    std::cout << "Spawning wave with " << data_.mobCount << " mobs" <<  std::endl; 
     mobSpawnClock_.restart();
 }
 
@@ -90,7 +90,7 @@ std::vector<Mob>& Wave::getMobs()
 
 void Wave::spawnMob()
 {
-    mobs_.emplace_back(mobIdCounter_, id_, path_, mobTexture_);
+    mobs_.emplace_back(mobIdCounter_, id_, data_.mobHp, data_.mobSpeed, path_, mobTexture_);
     mobIdCounter_++;
     spawnedMobsCount_++;
     mobSpawnClock_.restart();
@@ -104,7 +104,7 @@ bool Wave::timeToSpawnMob() const
 
 bool Wave::fullySpawned() const
 {
-    return spawnedMobsCount_ >= mobCount_;
+    return spawnedMobsCount_ >= data_.mobCount;
 }
 
 void Wave::dropRetiredProjectiles()

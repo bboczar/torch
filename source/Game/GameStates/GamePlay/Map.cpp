@@ -86,7 +86,7 @@ void Map::requestProjectile(wave::Mob& target, const sf::Vector2i& position)
 void Map::spawnWave()
 {
     const auto waveData = waveConfig_.getNextWaveData();
-    waves_.emplace(waveIdCounter_, wave::Wave(waveIdCounter_, mapConfig_.getPath(), waveData.mobCount, mobTexture_, projectileTexture_));
+    waves_.emplace(waveIdCounter_, wave::Wave(waveIdCounter_, mapConfig_.getPath(), waveData, mobTexture_, projectileTexture_));
     waveIdCounter_++;
     waveSpawnClock_.restart();
 }
