@@ -112,10 +112,12 @@ void Wave::dropRetiredProjectiles()
     std::erase_if(projectiles_, [](const Projectile& p){ return !p.alive(); });
 }
 
-// TODO: should not be unsafe but make itr optional
-Mob& Wave::getMobById(const MobId mobId)
+MaybeMobRef Wave::getMobById(const MobId mobId)
 {
-    return *std::ranges::find_if(mobs_, [mobId](const Mob& m){ return m.id() == mobId; });
+    const auto mobIter = std::ranges::find_if(mobs_, [mobId](const Mob& m){ return m.id() == mobId; });
+    return mobIter != mobs_.end()
+        ? MaybeMobRef(*mobIter)
+        : std::nullopt;
 }
 
 }  // namespace wave

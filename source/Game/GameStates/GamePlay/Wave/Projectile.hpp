@@ -14,6 +14,8 @@ namespace gameplay
 namespace wave
 {
 
+using MaybeMobRef = std::optional<std::reference_wrapper<Mob>>;
+
 enum class ProjectileStatus
 {
     SeekingTarget,
@@ -28,7 +30,7 @@ public:
         const MobId targetId,
         const sf::Vector2i& position,
         const sf::Texture& texture,
-        std::function<Mob&(const MobId)> getTarget);
+        std::function<MaybeMobRef(const MobId)> getTarget);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
@@ -52,7 +54,7 @@ private:
     unsigned speed_;
     sf::Vector2i position_;
 
-    std::function<Mob&(const MobId)> getTarget_;
+    std::function<MaybeMobRef(const MobId)> getTarget_;
 
     sf::Sprite sprite_;
 };

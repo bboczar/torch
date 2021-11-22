@@ -65,6 +65,8 @@ private:
     sf::Sprite sprite_;
 };
 
+using MaybeMobRef = std::optional<std::reference_wrapper<Mob>>;
+
 }  // namespace wave
 }  // namespace gameplay
 }  // namespace gamestates

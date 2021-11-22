@@ -16,7 +16,7 @@ Projectile::Projectile(
     const MobId targetId,
     const sf::Vector2i& position,
     const sf::Texture& texture,
-    std::function<Mob&(const MobId)> getTarget)
+    std::function<MaybeMobRef(const MobId)> getTarget)
     : targetId_(targetId)
     , status_(ProjectileStatus::SeekingTarget)
     , damage_(10)
@@ -49,10 +49,10 @@ void Projectile::update(const float deltaTimeSec)
         return;
     }
 
-    Mob& target = getTarget_(targetId_);
-    if (target.alive())
+    MaybeMobRef target = getTarget_(targetId_);
+    if (target and target->get().alive())
     {
-        lastKnownDestination_ = target.position();
+        lastKnownDestination_ = target->get().position();
     }
     else
     {
@@ -61,7 +61,7 @@ void Projectile::update(const float deltaTimeSec)
 
     if (status_ == ProjectileStatus::SeekingTarget && closeEnoughToDestination())
     {
-        targetReached(target);
+        targetReached(target->get());
         return;
     }
     else if (status_ == ProjectileStatus::TargetDead && closeEnoughToDestination())

@@ -43,7 +43,7 @@ private:
     bool timeToSpawnMob() const;
     bool fullySpawned() const;
     void dropRetiredProjectiles();
-    Mob& getMobById(const MobId mobId);
+    MaybeMobRef getMobById(const MobId mobId);
 
     std::vector<Mob> mobs_;
     std::vector<Projectile> projectiles_;
