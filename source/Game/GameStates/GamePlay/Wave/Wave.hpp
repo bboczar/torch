@@ -42,6 +42,7 @@ private:
     void spawnMob();
     bool timeToSpawnMob() const;
     bool fullySpawned() const;
+    void dropDeadMobs();
     void dropRetiredProjectiles();
     MaybeMobRef getMobById(const MobId mobId);
 

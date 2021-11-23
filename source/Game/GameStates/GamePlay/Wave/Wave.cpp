@@ -67,6 +67,7 @@ void Wave::update(const float deltaTimeSec)
         projectile.update(deltaTimeSec);
     }
 
+    dropDeadMobs();
     dropRetiredProjectiles();
 }
 
@@ -105,6 +106,11 @@ bool Wave::timeToSpawnMob() const
 bool Wave::fullySpawned() const
 {
     return spawnedMobsCount_ >= data_.mobCount;
+}
+
+void Wave::dropDeadMobs()
+{
+    std::erase_if(mobs_, [](const Mob& m){ return !m.alive(); });
 }
 
 void Wave::dropRetiredProjectiles()

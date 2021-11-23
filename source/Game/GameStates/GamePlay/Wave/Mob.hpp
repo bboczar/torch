@@ -53,8 +53,8 @@ private:
     void die();
     void destinationReached();
 
-    const MobId id_;
-    const WaveId waveId_;
+    MobId id_;
+    WaveId waveId_;
 
     MobStatus status_;
     unsigned heathPoints_;
