@@ -86,7 +86,15 @@ void Map::requestProjectile(wave::Mob& target, const sf::Vector2i& position)
 void Map::spawnWave()
 {
     const auto waveData = waveConfig_.getNextWaveData();
-    waves_.emplace(waveIdCounter_, wave::Wave(waveIdCounter_, mapConfig_.getPath(), waveData, mobTexture_, projectileTexture_));
+    waves_.emplace(
+        waveIdCounter_,
+        wave::Wave(
+            waveIdCounter_,
+            mapConfig_.getPath(),
+            waveData,
+            mobTexture_,
+            projectileTexture_,
+            std::bind(&Map::handleDeadMob, this, std::placeholders::_1)));
     waveIdCounter_++;
     waveSpawnClock_.restart();
 }
@@ -106,6 +114,10 @@ void Map::updateWaveCountdownText()
 void Map::handleClearedWaves()
 {
     std::erase_if(waves_, [](const auto& el){ return el.second.cleared(); });
+}
+
+void Map::handleDeadMob(const wave::MobStatus mobStatus)
+{
 }
 
 }  // namespace gameplay

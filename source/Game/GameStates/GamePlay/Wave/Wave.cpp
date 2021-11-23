@@ -17,7 +17,8 @@ Wave::Wave(
     const std::vector<sf::Vector2i>& path,
     const WaveData data,
     const sf::Texture& mobTexture,
-    const sf::Texture& projectileTexture)
+    const sf::Texture& projectileTexture,
+    std::function<void(const MobStatus)> deadMobReport)
     : id_(id)
     , path_(path)
     , data_(data)
@@ -26,6 +27,7 @@ Wave::Wave(
     , spawnedMobsCount_(0)
     , mobTexture_(mobTexture)
     , projectileTexture_(projectileTexture)
+    , reportDeadMob_(deadMobReport)
 {
     std::cout << "Spawning wave with " << data_.mobCount << " mobs" <<  std::endl; 
     mobSpawnClock_.restart();
@@ -67,6 +69,8 @@ void Wave::update(const float deltaTimeSec)
         projectile.update(deltaTimeSec);
     }
 
+    handleDeadMobs();
+    reportDeadMobs();
     dropDeadMobs();
     dropRetiredProjectiles();
 }
@@ -106,6 +110,23 @@ bool Wave::timeToSpawnMob() const
 bool Wave::fullySpawned() const
 {
     return spawnedMobsCount_ >= data_.mobCount;
+}
+
+void Wave::handleDeadMobs()
+{
+    reportDeadMobs();
+    dropDeadMobs();
+}
+
+void Wave::reportDeadMobs()
+{
+    for (const auto& mob : mobs_)
+    {
+        if (!mob.alive())
+        {
+            reportDeadMob_(mob.status());
+        }
+    }
 }
 
 void Wave::dropDeadMobs()

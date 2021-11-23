@@ -8,6 +8,7 @@
 #include <Game/GameStates/GamePlay/Background.hpp>
 #include <Game/GameStates/GamePlay/MapConfig.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
+#include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 #include <Game/GameStates/GamePlay/Wave/Wave.hpp>
 #include <Game/GameStates/GamePlay/Wave/WaveConfig.hpp>
 #include <Game/Traits/DrawingObject.hpp>
@@ -34,6 +35,7 @@ private:
     bool timeToSpawnWave() const;
     void updateWaveCountdownText();
     void handleClearedWaves();
+    void handleDeadMob(const wave::MobStatus mobStatus);
 
     std::unordered_map<wave::WaveId, wave::Wave> waves_;
     std::vector<Tower> towers_;

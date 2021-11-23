@@ -29,7 +29,8 @@ public:
         const std::vector<sf::Vector2i>& path,
         const WaveData data,
         const sf::Texture& mobTexture,
-        const sf::Texture& projectileTexture);
+        const sf::Texture& projectileTexture,
+        std::function<void(const MobStatus)> deadMobReport);
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
@@ -42,6 +43,8 @@ private:
     void spawnMob();
     bool timeToSpawnMob() const;
     bool fullySpawned() const;
+    void handleDeadMobs();
+    void reportDeadMobs();
     void dropDeadMobs();
     void dropRetiredProjectiles();
     MaybeMobRef getMobById(const MobId mobId);
@@ -60,6 +63,8 @@ private:
 
     const sf::Texture& mobTexture_;
     const sf::Texture& projectileTexture_;
+
+    std::function<void(const MobStatus)> reportDeadMob_;
 };
 
 }  // namespace wave
