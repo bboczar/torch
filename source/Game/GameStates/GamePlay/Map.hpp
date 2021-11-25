@@ -31,6 +31,7 @@ public:
 
 private:
     void drawText(sf::RenderWindow& window);
+    void drawGameOver(sf::RenderWindow& window);
     void requestProjectile(wave::Mob& target, const sf::Vector2i& position);
     void spawnWave();
     bool timeToSpawnWave() const;
@@ -51,7 +52,9 @@ private:
     sf::Text spawnCountdownText_;
     sf::Text cashText_;
     sf::Text livesText_;
+    sf::Text gameOverText_;
 
+    bool gameOver_;
     int lives_;
     unsigned cash_;
 

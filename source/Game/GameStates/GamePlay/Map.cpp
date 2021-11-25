@@ -11,7 +11,8 @@ namespace gameplay
 
 Map::Map(const sf::Font font)
     : font_(font)
-    , lives_(50)
+    , gameOver_(false)
+    , lives_(30)
     , cash_(60)
     , waveCooldown_(sf::seconds(20))
     , waveIdCounter_(0)
@@ -30,6 +31,11 @@ Map::Map(const sf::Font font)
     livesText_.setFont(font_);
     livesText_.setCharacterSize(16);
 
+    gameOverText_.setFont(font_);
+    gameOverText_.setFillColor(sf::Color::Red);
+    gameOverText_.setString(std::string("GAME OVER!")); 
+    gameOverText_.setCharacterSize(100);
+
     background_.setTexture(backgroundTexture_);
     waveSpawnClock_.restart();
 }
@@ -37,6 +43,13 @@ Map::Map(const sf::Font font)
 void Map::draw(sf::RenderWindow& window)
 {
     background_.draw(window);
+    drawText(window);
+
+    if (gameOver_)
+    {
+        drawGameOver(window);
+        return;
+    }
 
     for (auto& [id, wave] : waves_)
     {
@@ -47,12 +60,15 @@ void Map::draw(sf::RenderWindow& window)
     {
         tower.draw(window);
     }
-
-    drawText(window);
 }
 
 void Map::update(const float deltaTimeSec)
 {
+    if (gameOver_)
+    {
+        return;
+    }
+
     if (timeToSpawnWave() && not waveConfig_.empty())
     {
         spawnWave();
@@ -99,6 +115,12 @@ void Map::drawText(sf::RenderWindow& window)
 
     spawnCountdownText_.setPosition(windowSizeX - 90,  0);
     window.draw(spawnCountdownText_);
+}
+
+void Map::drawGameOver(sf::RenderWindow& window)
+{
+    gameOverText_.setPosition(window.getSize().x / 2 - 200, window.getSize().y / 2 - 50);
+    window.draw(gameOverText_);
 }
 
 void Map::requestProjectile(wave::Mob& target, const sf::Vector2i& position)
@@ -152,7 +174,7 @@ void Map::handleDeadMob(const wave::MobStatus mobStatus)
     switch (mobStatus)
     {
         case wave::MobStatus::Destination:
-            lives_--;
+            gameOver_ = --lives_ <= 0;
             return;  
         case wave::MobStatus::Killed:
             cash_ += 5;
