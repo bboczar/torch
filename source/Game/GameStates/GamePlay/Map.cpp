@@ -12,7 +12,7 @@ namespace gameplay
 Map::Map(const sf::Font font)
     : font_(font)
     , lives_(50)
-    , cash_(20)
+    , cash_(60)
     , waveCooldown_(sf::seconds(20))
     , waveIdCounter_(0)
 {
@@ -77,8 +77,14 @@ void Map::update(const float deltaTimeSec)
 
 void Map::requestTower(const sf::Vector2i& position)
 {
+    if (cash_ < 20)
+    {
+        return;
+    }
+
     towers_.emplace_back(position, towerTexture_,
         std::bind(&Map::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
+    cash_ -= 20;
 }
 
 void Map::drawText(sf::RenderWindow& window)
@@ -143,6 +149,18 @@ void Map::handleClearedWaves()
 
 void Map::handleDeadMob(const wave::MobStatus mobStatus)
 {
+    switch (mobStatus)
+    {
+        case wave::MobStatus::Destination:
+            lives_--;
+            return;  
+        case wave::MobStatus::Killed:
+            cash_ += 5;
+            return;
+        case wave::MobStatus::Alive:
+            // Shall not happen
+            return;
+    }
 }
 
 }  // namespace gameplay
