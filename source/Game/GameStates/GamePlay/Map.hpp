@@ -30,10 +30,11 @@ public:
     void requestTower(const sf::Vector2i& position);
 
 private:
+    void drawText(sf::RenderWindow& window);
     void requestProjectile(wave::Mob& target, const sf::Vector2i& position);
     void spawnWave();
     bool timeToSpawnWave() const;
-    void updateWaveCountdownText();
+    void updateText();
     void handleClearedWaves();
     void handleDeadMob(const wave::MobStatus mobStatus);
 
@@ -48,6 +49,11 @@ private:
 
     sf::Font font_;
     sf::Text spawnCountdownText_;
+    sf::Text cashText_;
+    sf::Text livesText_;
+
+    int lives_;
+    unsigned cash_;
 
     sf::Time waveCooldown_;
     sf::Clock waveSpawnClock_;

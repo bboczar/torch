@@ -11,6 +11,8 @@ namespace gameplay
 
 Map::Map(const sf::Font font)
     : font_(font)
+    , lives_(50)
+    , cash_(20)
     , waveCooldown_(sf::seconds(20))
     , waveIdCounter_(0)
 {
@@ -21,6 +23,12 @@ Map::Map(const sf::Font font)
 
     spawnCountdownText_.setFont(font_);
     spawnCountdownText_.setCharacterSize(16);
+
+    cashText_.setFont(font_);
+    cashText_.setCharacterSize(16);
+
+    livesText_.setFont(font_);
+    livesText_.setCharacterSize(16);
 
     background_.setTexture(backgroundTexture_);
     waveSpawnClock_.restart();
@@ -40,8 +48,7 @@ void Map::draw(sf::RenderWindow& window)
         tower.draw(window);
     }
 
-    spawnCountdownText_.setPosition(window.getSize().x - 90,  0);
-    window.draw(spawnCountdownText_);
+    drawText(window);
 }
 
 void Map::update(const float deltaTimeSec)
@@ -64,7 +71,7 @@ void Map::update(const float deltaTimeSec)
         }
     }
 
-    updateWaveCountdownText();
+    updateText();
     handleClearedWaves();
 }
 
@@ -72,6 +79,20 @@ void Map::requestTower(const sf::Vector2i& position)
 {
     towers_.emplace_back(position, towerTexture_,
         std::bind(&Map::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
+}
+
+void Map::drawText(sf::RenderWindow& window)
+{
+    const auto windowSizeX = window.getSize().x;
+
+    cashText_.setPosition((windowSizeX - 90) / 3,  0);
+    window.draw(cashText_);
+
+    livesText_.setPosition(2 * (windowSizeX - 90) / 3,  0);
+    window.draw(livesText_);
+
+    spawnCountdownText_.setPosition(windowSizeX - 90,  0);
+    window.draw(spawnCountdownText_);
 }
 
 void Map::requestProjectile(wave::Mob& target, const sf::Vector2i& position)
@@ -105,8 +126,12 @@ bool Map::timeToSpawnWave() const
     return elapsedTimeSec >= waveCooldown_;
 }
 
-void Map::updateWaveCountdownText()
+void Map::updateText()
 {
+    cashText_.setString(std::string("Cash: ") + std::to_string(cash_));  
+
+    livesText_.setString(std::string("Lives: ") + std::to_string(lives_));  
+
     const unsigned counter = (waveCooldown_ - waveSpawnClock_.getElapsedTime()).asSeconds();
     spawnCountdownText_.setString(std::string("Next wave: ") + std::to_string(counter));   
 }
