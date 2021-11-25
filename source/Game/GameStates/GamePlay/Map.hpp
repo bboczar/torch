@@ -1,6 +1,6 @@
 #pragma once
 
-#include <unordered_map>
+#include <map>
 #include <vector>
 
 #include <SFML/Graphics.hpp>
@@ -39,7 +39,7 @@ private:
     void handleClearedWaves();
     void handleDeadMob(const wave::MobStatus mobStatus);
 
-    std::unordered_map<wave::WaveId, wave::Wave> waves_;
+    std::map<wave::WaveId, wave::Wave> waves_;
     std::vector<Tower> towers_;
     Backgorund background_;
 
