@@ -15,6 +15,7 @@ class MainMenuState : public GameState
 {
 public:
     MainMenuState(sf::RenderWindow& window, sf::Font font);
+    ~MainMenuState();
     DesiredState handleEvents() final;
     void update(const float) final;
     void draw() final;

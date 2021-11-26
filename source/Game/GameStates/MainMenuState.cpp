@@ -14,6 +14,13 @@ MainMenuState::MainMenuState(
     , menu_(mainmenu::MainMenu(font))
 {
     music_.openFromFile("resources/main_menu.ogg");
+    music_.setLoop(true);
+    resume();
+}
+
+MainMenuState::~MainMenuState()
+{
+    pause();
 }
 
 std::optional<GameStateType> MainMenuState::handleEvents()
@@ -61,12 +68,12 @@ GameStateType MainMenuState::type() const
 
 void MainMenuState::resume()
 {
-    // music_.play();
+    music_.play();
 }
 
 void MainMenuState::pause()
 {
-    // music_.pause();
+    music_.pause();
 }
 
 DesiredState MainMenuState::handleKeyPressed(const sf::Event event)

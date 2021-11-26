@@ -18,6 +18,7 @@ using DesiredState = std::optional<GameStateType>;
 class GameState 
 {
 public:
+    virtual ~GameState() {};
     virtual DesiredState handleEvents() = 0;
     virtual void update(const float) = 0;
     virtual void draw() = 0;
