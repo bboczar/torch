@@ -29,7 +29,7 @@ public:
     MenuElement selectEntry();
 
 private:
-    void placeAccordingToSize(const float width, const float height);
+    void placeAccordingToSize(const sf::Vector2f size);
 
     MenuElement activeEntry_{MenuElement_Start};
     sf::Font font_;

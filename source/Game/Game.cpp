@@ -59,7 +59,7 @@ void Game::setupResources()
 {
     font_.loadFromFile("resources/Bebas-Regular.ttf");
     fpsText_.setFont(font_);
-    fpsText_.setCharacterSize(16);
+    fpsText_.setCharacterSize(18);
 }
 
 void Game::updateFps(const float deltaTimeSec)

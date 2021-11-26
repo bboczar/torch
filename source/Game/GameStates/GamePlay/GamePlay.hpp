@@ -19,7 +19,7 @@ public:
 
     virtual void draw(sf::RenderWindow& window) final;
     void update(const float deltaTimeSec);
-    void requestTower(const int x, const int y);
+    void requestTower(const sf::Vector2i& position);
 
 private:
     Map map_;

@@ -23,13 +23,13 @@ Map::Map(const sf::Font font)
     assert(backgroundTexture_.loadFromFile("resources/map.png") && "Missing background texture");
 
     spawnCountdownText_.setFont(font_);
-    spawnCountdownText_.setCharacterSize(16);
+    spawnCountdownText_.setCharacterSize(18);
 
     cashText_.setFont(font_);
-    cashText_.setCharacterSize(16);
+    cashText_.setCharacterSize(18);
 
     livesText_.setFont(font_);
-    livesText_.setCharacterSize(16);
+    livesText_.setCharacterSize(18);
 
     gameOverText_.setFont(font_);
     gameOverText_.setFillColor(sf::Color::Red);
@@ -105,15 +105,15 @@ void Map::requestTower(const sf::Vector2i& position)
 
 void Map::drawText(sf::RenderWindow& window)
 {
-    const auto windowSizeX = window.getSize().x;
+    const auto windowSizeX = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, 0)).x;
 
-    cashText_.setPosition((windowSizeX - 90) / 3,  0);
+    cashText_.setPosition((windowSizeX - 100) / 3,  0);
     window.draw(cashText_);
 
-    livesText_.setPosition(2 * (windowSizeX - 90) / 3,  0);
+    livesText_.setPosition(2 * (windowSizeX - 100) / 3,  0);
     window.draw(livesText_);
 
-    spawnCountdownText_.setPosition(windowSizeX - 90,  0);
+    spawnCountdownText_.setPosition(windowSizeX - 100,  0);
     window.draw(spawnCountdownText_);
 }
 

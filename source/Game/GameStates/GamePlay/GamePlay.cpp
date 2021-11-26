@@ -23,9 +23,9 @@ void GamePlay::update(const float deltaTimeSec)
     map_.update(deltaTimeSec);
 }
 
-void GamePlay::requestTower(const int x, const int y)
+void GamePlay::requestTower(const sf::Vector2i& position)
 {
-    map_.requestTower({x, y});
+    map_.requestTower(position);
 }
 
 }  // namespace gameplay

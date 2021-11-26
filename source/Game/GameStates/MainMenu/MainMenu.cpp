@@ -25,7 +25,8 @@ MainMenu::MainMenu(const sf::Font font)
 
 void MainMenu::draw(sf::RenderWindow& window)
 {
-    placeAccordingToSize(window.getSize().x, window.getSize().y);
+    const sf::Vector2f& realSize = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, window.getSize().y));
+    placeAccordingToSize(realSize);
     for (const auto menuElement : menuElements_)
     {
         window.draw(menuElement);
@@ -51,11 +52,11 @@ MainMenu::MenuElement MainMenu::selectEntry()
     return activeEntry_;
 }
 
-void MainMenu::placeAccordingToSize(const float width, const float height)
+void MainMenu::placeAccordingToSize(const sf::Vector2f size)
 {
-    menuElements_[MenuElement_Start].setPosition(sf::Vector2f(width / 2, height / (MenuElement_Count + 1) * 1));
-    menuElements_[MenuElement_Options].setPosition(sf::Vector2f(width / 2, height / (MenuElement_Count + 1) * 2));
-    menuElements_[MenuElement_Exit].setPosition(sf::Vector2f(width / 2, height / (MenuElement_Count + 1) * 3));
+    menuElements_[MenuElement_Start].setPosition(sf::Vector2f(size.x / 2, size.y / (MenuElement_Count + 1) * 1));
+    menuElements_[MenuElement_Options].setPosition(sf::Vector2f(size.x / 2, size.y / (MenuElement_Count + 1) * 2));
+    menuElements_[MenuElement_Exit].setPosition(sf::Vector2f(size.x / 2, size.y / (MenuElement_Count + 1) * 3));
 }
 
 }  // namespace mainmenu

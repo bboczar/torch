@@ -37,7 +37,7 @@ std::optional<GameStateType> GamePlayState::handleEvents()
                 window_.close();
                 break;
             case sf::Event::Resized:
-                // TODO: fix
+                // TODO: use sf::View?
                 window_.setSize(sf::Vector2u(event.size.width, event.size.height));
                 break;
             case sf::Event::KeyReleased:
@@ -98,10 +98,12 @@ DesiredState GamePlayState::handleKeyReleased(const sf::Event event)
 
 void GamePlayState::handleMouseButtonPressed(const sf::Event event)
 {
+    sf::Vector2f pos = window_.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y));
+
     switch (event.mouseButton.button)
     {
         case sf::Mouse::Left:
-            gamePlay_.requestTower(event.mouseButton.x, event.mouseButton.y);
+            gamePlay_.requestTower(sf::Vector2i(pos.x, pos.y));
             break;
         default:
             break;
