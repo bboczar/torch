@@ -5,8 +5,8 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <Game/GameStates/GamePlay/Background.hpp>
-#include <Game/GameStates/GamePlay/MapConfig.hpp>
+#include <Game/GameStates/GamePlay/Map/Background.hpp>
+#include <Game/GameStates/GamePlay/Map/MapConfig.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
 #include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 #include <Game/GameStates/GamePlay/Wave/Wave.hpp>
@@ -41,7 +41,7 @@ private:
 
     std::map<wave::WaveId, wave::Wave> waves_;
     std::vector<Tower> towers_;
-    Backgorund background_;
+    map::Backgorund background_;
 
     sf::Texture towerTexture_;
     sf::Texture mobTexture_;
@@ -62,7 +62,7 @@ private:
     sf::Clock waveSpawnClock_;
     wave::WaveId waveIdCounter_;
 
-    MapConfig mapConfig_;
+    map::MapConfig mapConfig_;
     wave::WaveConfig waveConfig_;
 };
 

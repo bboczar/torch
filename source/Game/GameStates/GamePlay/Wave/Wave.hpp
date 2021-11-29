@@ -4,7 +4,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <Game/GameStates/GamePlay/MapConfig.hpp>
 #include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 #include <Game/GameStates/GamePlay/Wave/Projectile.hpp>
 #include <Game/GameStates/GamePlay/Wave/WaveConfig.hpp>
