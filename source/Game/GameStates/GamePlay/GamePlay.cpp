@@ -167,6 +167,7 @@ void GamePlay::updateText()
 void GamePlay::handleClearedWaves()
 {
     std::erase_if(waves_, [](const auto& el){ return el.second.cleared(); });
+    gameOver_ = outOfLives() or endOfContent();
 }
 
 void GamePlay::handleDeadMob(const wave::MobStatus mobStatus)
@@ -174,7 +175,8 @@ void GamePlay::handleDeadMob(const wave::MobStatus mobStatus)
     switch (mobStatus)
     {
         case wave::MobStatus::Destination:
-            gameOver_ = --lives_ <= 0;
+            --lives_;
+            gameOver_ = outOfLives() or endOfContent();
             return;  
         case wave::MobStatus::Killed:
             cash_ += 5;
@@ -183,6 +185,16 @@ void GamePlay::handleDeadMob(const wave::MobStatus mobStatus)
             // Shall not happen
             return;
     }
+}
+
+bool GamePlay::outOfLives() const
+{
+    return lives_ <= 0;
+}
+
+bool GamePlay::endOfContent() const
+{
+    return waves_.empty() and waveConfig_.empty();
 }
 
 }  // namespace gameplay

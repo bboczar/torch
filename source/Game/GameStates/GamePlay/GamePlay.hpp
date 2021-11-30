@@ -38,6 +38,8 @@ private:
     void updateText();
     void handleClearedWaves();
     void handleDeadMob(const wave::MobStatus mobStatus);
+    bool outOfLives() const;
+    bool endOfContent() const;
 
     std::map<wave::WaveId, wave::Wave> waves_;
     std::vector<Tower> towers_;
