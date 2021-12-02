@@ -7,6 +7,7 @@
 
 #include <Game/GameStates/GamePlay/Map/Background.hpp>
 #include <Game/GameStates/GamePlay/Map/MapConfig.hpp>
+#include <Game/GameStates/GamePlay/Map/Tiles.hpp>
 #include <Game/GameStates/GamePlay/Tower.hpp>
 #include <Game/GameStates/GamePlay/Wave/Mob.hpp>
 #include <Game/GameStates/GamePlay/Wave/Wave.hpp>
@@ -66,6 +67,8 @@ private:
 
     map::MapConfig mapConfig_;
     wave::WaveConfig waveConfig_;
+
+    map::Tiles tiles_;
 };
 
 }  // namespace gameplay

@@ -98,9 +98,16 @@ void GamePlay::requestTower(const sf::Vector2i& position)
         return;
     }
 
-    towers_.emplace_back(position, towerTexture_,
+    const auto location = tiles_.requestBuildLocation(position);
+    if (location == std::nullopt)
+    {
+        return;
+    }
+
+    towers_.emplace_back(*location, towerTexture_,
         std::bind(&GamePlay::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
     cash_ -= 20;
+    tiles_.markOccupied(position);
 }
 
 void GamePlay::drawText(sf::RenderWindow& window)
