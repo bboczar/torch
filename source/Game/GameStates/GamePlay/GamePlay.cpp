@@ -20,7 +20,6 @@ GamePlay::GamePlay(const sf::Font font)
     assert(towerTexture_.loadFromFile("resources/tower.png") && "Missing tower texture");
     assert(mobTexture_.loadFromFile("resources/spider.png") && "Missing mob texture");
     assert(projectileTexture_.loadFromFile("resources/projectile.png") && "Missing projectile texture");
-    assert(backgroundTexture_.loadFromFile("resources/map.png") && "Missing background texture");
 
     spawnCountdownText_.setFont(font_);
     spawnCountdownText_.setCharacterSize(18);
@@ -36,13 +35,12 @@ GamePlay::GamePlay(const sf::Font font)
     gameOverText_.setString(std::string("GAME OVER!")); 
     gameOverText_.setCharacterSize(100);
 
-    background_.setTexture(backgroundTexture_);
     waveSpawnClock_.restart();
 }
 
 void GamePlay::draw(sf::RenderWindow& window)
 {
-    background_.draw(window);
+    map_.draw(window);
     drawText(window);
 
     if (gameOver_)
@@ -98,7 +96,7 @@ void GamePlay::requestTower(const sf::Vector2i& position)
         return;
     }
 
-    const auto location = tiles_.requestBuildLocation(position);
+    const auto location = map_.requestBuildLocation(position);
     if (location == std::nullopt)
     {
         return;
@@ -107,7 +105,7 @@ void GamePlay::requestTower(const sf::Vector2i& position)
     towers_.emplace_back(*location, towerTexture_,
         std::bind(&GamePlay::requestProjectile, this, std::placeholders::_1, std::placeholders::_2));
     cash_ -= 20;
-    tiles_.markOccupied(position);
+    map_.markOccupied(position);
 }
 
 void GamePlay::drawText(sf::RenderWindow& window)
@@ -146,7 +144,7 @@ void GamePlay::spawnWave()
         waveIdCounter_,
         wave::Wave(
             waveIdCounter_,
-            mapConfig_.getPath(),
+            map_.getPath(),
             waveData,
             mobTexture_,
             projectileTexture_,
