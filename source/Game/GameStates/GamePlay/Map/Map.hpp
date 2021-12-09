@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <queue>
 
 #include <SFML/Graphics.hpp>
 
@@ -25,7 +25,7 @@ public:
     virtual void draw(sf::RenderWindow& window) final;
     MaybeLocation requestBuildLocation(const sf::Vector2i& point);
     void markOccupied(const sf::Vector2i& point);
-    std::vector<sf::Vector2i> getPath();
+    std::queue<sf::Vector2i> getPath();
 
 private:
     map::Backgorund background_;

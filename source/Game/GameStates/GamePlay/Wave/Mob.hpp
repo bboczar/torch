@@ -1,6 +1,6 @@
 #pragma once
 
-#include <stack>
+#include <queue>
 
 #include <SFML/Graphics.hpp>
 
@@ -33,7 +33,7 @@ public:
         const WaveId waveId,
         const unsigned hp,
         const unsigned speed,
-        const std::vector<sf::Vector2i>& path,
+        const std::queue<sf::Vector2i>& path,
         const sf::Texture& texture);
 
     virtual void draw(sf::RenderWindow& window) final;
@@ -60,7 +60,7 @@ private:
     unsigned heathPoints_;
     unsigned speed_;
     sf::Vector2i position_;
-    std::stack<sf::Vector2i> path_;
+    std::queue<sf::Vector2i> path_;
 
     sf::Sprite sprite_;
 };

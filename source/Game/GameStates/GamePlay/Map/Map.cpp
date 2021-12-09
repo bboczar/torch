@@ -33,7 +33,7 @@ void Map::markOccupied(const sf::Vector2i& point)
     return tiles_.markOccupied(point);
 }
 
-std::vector<sf::Vector2i> Map::getPath()
+std::queue<sf::Vector2i> Map::getPath()
 {
     return mapConfig_.getPath();
 }

@@ -14,20 +14,16 @@ Mob::Mob(
     const WaveId waveId,
     const unsigned hp,
     const unsigned speed,
-    const std::vector<sf::Vector2i>& path,
+    const std::queue<sf::Vector2i>& path,
     const sf::Texture& texture)
     : id_(id)
     , waveId_(waveId)
     , status_(MobStatus::Alive)
     , heathPoints_(hp)
     , speed_(speed)
+    , path_(path)
 {
-    for (const auto& point : path)
-    {
-        path_.push(point);
-    }
-
-    position_ = path_.top();
+    position_ = path_.front();
     path_.pop();
 
     sprite_.setTexture(texture);
@@ -107,7 +103,7 @@ bool Mob::alive() const
 void Mob::move(const float deltaTimeSec)
 {
     const unsigned distance = speed_ * deltaTimeSec;
-    const auto destination = path_.top();
+    const auto destination = path_.front();
 
     if (position_.x == destination.x)
     {
@@ -118,7 +114,7 @@ void Mob::move(const float deltaTimeSec)
         position_.x = calcNewPosition(position_.x, destination.x, distance);
     }
 
-    if (position_ == path_.top())
+    if (position_ == path_.front())
     {
         path_.pop();
     }

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <queue>
 
 #include <SFML/Graphics.hpp>
 
@@ -25,7 +26,7 @@ class Wave : public traits::DrawingObject
 public:
     Wave(
         const WaveId id,
-        const std::vector<sf::Vector2i>& path,
+        const std::queue<sf::Vector2i>& path,
         const WaveData data,
         const sf::Texture& mobTexture,
         const sf::Texture& projectileTexture,
@@ -52,7 +53,7 @@ private:
     std::vector<Projectile> projectiles_;
 
     const WaveId id_;
-    const std::vector<sf::Vector2i> path_;
+    const std::queue<sf::Vector2i> path_;
     const WaveData data_;
 
     sf::Clock mobSpawnClock_;

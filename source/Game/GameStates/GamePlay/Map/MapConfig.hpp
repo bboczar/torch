@@ -1,6 +1,6 @@
 #pragma once
 
-#include <vector>
+#include <queue>
 
 #include <SFML/Graphics.hpp>
 
@@ -16,12 +16,12 @@ namespace map
 class MapConfig
 {
 public:
-    std::vector<sf::Vector2i> getPath();
+    std::queue<sf::Vector2i> getPath();
 
 private:
     void readFromFile();
 
-    std::vector<sf::Vector2i> path_;
+    std::queue<sf::Vector2i> path_;
 };
 
 }  // namespace map

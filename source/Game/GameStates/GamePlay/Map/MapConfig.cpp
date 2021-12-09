@@ -12,7 +12,7 @@ namespace gameplay
 namespace map
 {
 
-std::vector<sf::Vector2i> MapConfig::getPath()
+std::queue<sf::Vector2i> MapConfig::getPath()
 {
     if (!path_.empty())
     {
@@ -33,14 +33,12 @@ void MapConfig::readFromFile()
     {
         int x, y;
         mapConfig >> x >> y;
-        path_.push_back(sf::Vector2i(x, y)); 
+        path_.push(sf::Vector2i(x, y)); 
     }
 
     mapConfig.close();
 
     assert(!path_.empty() && "No valid points in the map's path"); 
-
-    std::reverse(path_.begin() ,path_.end());
 }
 
 }  // namespace map

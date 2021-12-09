@@ -14,7 +14,7 @@ namespace wave
 
 Wave::Wave(
     const WaveId id,
-    const std::vector<sf::Vector2i>& path,
+    const std::queue<sf::Vector2i>& path,
     const WaveData data,
     const sf::Texture& mobTexture,
     const sf::Texture& projectileTexture,
