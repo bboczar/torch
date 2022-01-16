@@ -1,5 +1,6 @@
 #pragma once
 
+#include <optional>
 #include <queue>
 
 #include <SFML/Graphics.hpp>

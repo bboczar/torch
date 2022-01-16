@@ -1,4 +1,5 @@
 #include <Game/GameStates/GamePlay/Map/Tiles.hpp>
+#include <Game/GameStates/GamePlay/Map/TilesLoader.hpp>
 
 namespace game
 {
@@ -10,6 +11,15 @@ namespace map
 {
 
 Tiles::Tiles()
+: tiles_(TilesLoader().get())
+{
+    if (tiles_.empty())
+    {
+        setDefaultTiles();
+    }
+}
+
+void Tiles::setDefaultTiles()
 {
     for (unsigned x = 20; x < 800; x += 40)
     {

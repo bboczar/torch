@@ -1,8 +1,11 @@
 #pragma once
 
+#include <optional>
 #include <vector>
 
 #include <SFML/Graphics.hpp>
+
+#include <Game/GameStates/GamePlay/Map/Tile.hpp>
 
 namespace game
 {
@@ -15,20 +18,6 @@ namespace map
 
 using MaybeLocation = std::optional<sf::Vector2i>;
 
-struct Tile
-{
-    enum class Type
-    {
-        Path,
-        Land
-    };
-
-    Type type;
-    unsigned size;
-    sf::Vector2i centre;
-    bool occupied;
-};
-
 class Tiles
 {
 public:
@@ -37,6 +26,7 @@ public:
     void markOccupied(const sf::Vector2i& point);
 
 private:
+    void setDefaultTiles();
     Tile& getTileIncluding(const sf::Vector2i& point);
     bool tileIncludes(const Tile& tile, const sf::Vector2i& point) const;
     std::vector<Tile> tiles_;

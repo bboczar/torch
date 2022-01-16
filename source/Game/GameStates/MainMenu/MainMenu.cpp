@@ -27,7 +27,7 @@ void MainMenu::draw(sf::RenderWindow& window)
 {
     const sf::Vector2f& realSize = window.mapPixelToCoords(sf::Vector2i(window.getSize().x, window.getSize().y));
     placeAccordingToSize(realSize);
-    for (const auto menuElement : menuElements_)
+    for (const auto& menuElement : menuElements_)
     {
         window.draw(menuElement);
     }
