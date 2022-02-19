@@ -1,3 +1,4 @@
+#include <Game/GameStates/GamePlay/Map/Defaults.hpp>
 #include <Game/GameStates/GamePlay/Map/Tiles.hpp>
 #include <Game/GameStates/GamePlay/Map/TilesLoader.hpp>
 
@@ -21,11 +22,11 @@ Tiles::Tiles()
 
 void Tiles::setDefaultTiles()
 {
-    for (unsigned x = 20; x < 800; x += 40)
+    for (unsigned x = TILE_SIZE / 2; x < MAP_WIDTH; x += TILE_SIZE)
     {
-        for (unsigned y = 20; y < 600; y += 40)
+        for (unsigned y = TILE_SIZE / 2; y < MAP_HEIGHT; y += TILE_SIZE)
         {
-            tiles_.emplace_back(Tile::Type::Land, 40, sf::Vector2i(x, y), false);
+            tiles_.emplace_back(Tile::Type::Land, TILE_SIZE, sf::Vector2i(x, y), false);
         }
     }
 }

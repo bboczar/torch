@@ -1,3 +1,4 @@
+#include <Game/GameStates/GamePlay/Map/Defaults.hpp>
 #include <Game/GameStates/GamePlay/Map/TilesLoader.hpp>
 
 #include <fstream>
@@ -41,9 +42,9 @@ std::vector<Tile> tileTypesToTiles(const std::vector<std::vector<Tile::Type>>& t
     {
         for (unsigned j = 0; j < tileTypes[i].size(); j++)
         {
-            const unsigned x = 20 + 40 * j;
-            const unsigned y = 20 + 40 * i;
-            tiles.emplace_back(tileTypes[i][j], 40, sf::Vector2i(x, y), false);
+            const unsigned x = TILE_SIZE / 2 + TILE_SIZE * j;
+            const unsigned y = TILE_SIZE / 2 + TILE_SIZE * i;
+            tiles.emplace_back(tileTypes[i][j], TILE_SIZE, sf::Vector2i(x, y), false);
         }
     }
 
