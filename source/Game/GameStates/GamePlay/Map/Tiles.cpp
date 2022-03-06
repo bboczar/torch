@@ -26,7 +26,7 @@ void Tiles::setDefaultTiles()
     {
         for (unsigned y = TILE_SIZE / 2; y < MAP_HEIGHT; y += TILE_SIZE)
         {
-            tiles_.emplace_back(Tile::Type::Land, TILE_SIZE, sf::Vector2i(x, y), false);
+            tiles_.emplace_back(Tile::Type::Land, TILE_SIZE, sf::Vector2i(x, y), false, sf::RectangleShape());
         }
     }
 }
@@ -45,6 +45,14 @@ void Tiles::markOccupied(const sf::Vector2i& point)
     tile.occupied = true;
 }
 
+void Tiles::draw(sf::RenderWindow& window) const
+{
+    for (auto& tile : tiles_)
+    {
+        drawTile(tile, window);
+    }
+}
+
 Tile& Tiles::getTileIncluding(const sf::Vector2i& point)
 {
     return *std::ranges::find_if(
@@ -57,6 +65,11 @@ bool Tiles::tileIncludes(const Tile& tile, const sf::Vector2i& point) const
     const int halfSize = tile.size / 2;
     return ((tile.centre.x - halfSize) < point.x and (tile.centre.x + halfSize) > point.x)
         and ((tile.centre.y - halfSize) < point.y and (tile.centre.y + halfSize) > point.y);
+}
+
+void Tiles::drawTile(const Tile& tile, sf::RenderWindow& window) const
+{
+    window.draw(tile.shape);
 }
 
 }  // namespace map

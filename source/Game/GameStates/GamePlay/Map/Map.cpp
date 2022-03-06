@@ -20,7 +20,8 @@ Map::Map()
 
 void Map::draw(sf::RenderWindow& window)
 {
-    background_.draw(window);
+    // background_.draw(window);
+    tiles_.draw(window);
 }
 
 MaybeLocation Map::requestBuildLocation(const sf::Vector2i& point) 

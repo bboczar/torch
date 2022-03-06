@@ -29,7 +29,6 @@ Wave::Wave(
     , projectileTexture_(projectileTexture)
     , reportDeadMob_(deadMobReport)
 {
-    std::cout << "Spawning wave with " << data_.mobCount << " mobs" <<  std::endl; 
     mobSpawnClock_.restart();
 }
 
@@ -55,7 +54,6 @@ void Wave::update(const float deltaTimeSec)
 
     if (not fullySpawned() && timeToSpawnMob())
     {
-        std::cout << "Spawn mob" << std::endl; 
         spawnMob();
     }
 
